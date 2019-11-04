@@ -14,14 +14,14 @@ Revista::Revista(string titulo, string assunto, int cota, string editora, string
     this->url        = url;
     for (short i = 0; i < sizeof(exemplares); i++)
         this->exemplares[i] = exemplares[i];
-    qtdRev++;
+//    qtdRev++;
 }
 
 Revista::Revista():Documento("","",0,""){
     Revista("","",0,"","","",NULL);
 }
 
-Revista::~Revista() { qtdRev--;}
+Revista::~Revista() { /*qtdRev--;*/}
 
 string Revista::getISSN()           { return issn;     }
 

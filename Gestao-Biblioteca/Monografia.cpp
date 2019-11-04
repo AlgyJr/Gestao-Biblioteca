@@ -14,12 +14,12 @@ Monografia::Monografia(string titulo, string assunto, int cota, string editora, 
     this->curso = curso;
     for (short i = 0; i < sizeof(exemplares); i++)
         this->exemplares[i] = exemplares[i];
-    qtdMono++;
+//    qtdMono++;
 }
 
 Monografia::Monografia():Documento("","",0,""){ Monografia("","",0,"","",NULL);}
 
-Monografia::~Monografia() { qtdMono--;}
+Monografia::~Monografia() { /*qtdMono--;*/}
 
 string Monografia::getCurso()        { return curso;     }
 

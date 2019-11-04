@@ -10,14 +10,14 @@
 //#include <sstream>
 
 CD::CD(string titulo, string assunto, int cota, string editora, float duracao,string idioma, Exemplar *exemplares[]):Disco(titulo, assunto, cota, editora, duracao, idioma, exemplares){
-    qtdCD++;
+//    qtdCD++;
 }
 
 CD::CD():Disco("","",0,"",0,"",NULL){
     CD("","",0,"",0,"",NULL);
 }
 
-CD::~CD() { qtdCD--;}
+CD::~CD() { /*qtdCD--;*/}
 
 string CD::Disco::toString() {
 //    stringstream str;

@@ -21,7 +21,7 @@ public:
     Livro(string titulo, string assunto, int cota, string editora, Autor *autor, string isbn, ExemplarLivro *exemplares[]);
     Livro();
     ~Livro();
-    static int qtdLivro;
+//    static int qtdLivro;
 private:
     Autor *autor;
     string isbn;

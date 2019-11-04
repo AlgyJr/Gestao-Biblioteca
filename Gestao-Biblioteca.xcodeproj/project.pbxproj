@@ -96,9 +96,9 @@
 		65588BD2234A845F009F62C5 /* Gestao-Biblioteca */ = {
 			isa = PBXGroup;
 			children = (
-				6567708E235DACFB00428A49 /* ExemplarLivro.cpp */,
 				6520F4B6236683EF00C4CC9D /* Leitor.cpp */,
 				6520F4B7236683EF00C4CC9D /* Leitor.hpp */,
+				6567708E235DACFB00428A49 /* ExemplarLivro.cpp */,
 				6567708F235DACFB00428A49 /* ExemplarLivro.hpp */,
 				65588BD3234A845F009F62C5 /* main.cpp */,
 				658ECCD72362F00D00222A10 /* Monografia.cpp */,
@@ -116,11 +116,11 @@
 				65677088235DAB3C00428A49 /* Autor.cpp */,
 				65677089235DAB3C00428A49 /* Autor.hpp */,
 				656C8D8A2351805A00AEF70F /* Revista.cpp */,
-				65E33936236F9E3100D6B382 /* Validacoes.cpp */,
+				656C8D8B2351805A00AEF70F /* Revista.hpp */,
 				65E33939236F9E5500D6B382 /* Tarefas.cpp */,
 				65E3393A236F9E5500D6B382 /* Tarefas.hpp */,
+				65E33936236F9E3100D6B382 /* Validacoes.cpp */,
 				65E33937236F9E3100D6B382 /* Validacoes.hpp */,
-				656C8D8B2351805A00AEF70F /* Revista.hpp */,
 				65677085235DAB0C00428A49 /* Exemplar.cpp */,
 				65677086235DAB0C00428A49 /* Exemplar.hpp */,
 			);

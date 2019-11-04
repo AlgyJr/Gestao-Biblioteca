@@ -21,7 +21,7 @@ public:
     Leitor();
     //Destrutor
     ~Leitor();
-    static int qtdLeitor;
+//    static int qtdLeitor;
 private:
     short cod_leitor;
     string nome;

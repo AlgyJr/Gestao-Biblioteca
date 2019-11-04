@@ -11,14 +11,14 @@
 
 DVD::DVD(string titulo, string assunto, int cota, string editora, float duracao,string idioma, Exemplar *exemplares[], int qualidade):Disco(titulo, assunto, cota, editora, duracao, idioma, exemplares){
     this->qualidade = qualidade;
-    qtdDVD++;
+//    qtdDVD++;
 }
 
 DVD::DVD():Disco("","",0,"",0,"",NULL){
     DVD("","",0,"",0,"",NULL,0);
 }
 
-DVD::~DVD() { qtdDVD--;}
+DVD::~DVD() { /*qtdDVD--;*/}
 
 int DVD::getQualidade() { return qualidade;}
 

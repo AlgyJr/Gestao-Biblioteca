@@ -20,7 +20,7 @@ public:
     DVD(string titulo, string assunto, int cota, string editora, float duracao,string idioma, Exemplar *exemplares[], int qualidade);
     DVD();
     ~DVD();
-    static int qtdDVD;
+//    static int qtdDVD;
 private:
     int qualidade;
     //Gets

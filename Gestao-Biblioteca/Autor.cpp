@@ -12,14 +12,14 @@
 Autor::Autor(short cod_Autor, string nome){
     this->cod_Autor = cod_Autor;
     this->nome      = nome;
-    qtdAutor++;
+//    qtdAutor++;
 }
 
 Autor::Autor() {
     Autor(0,"");
 }
 
-Autor::~Autor() { qtdAutor--;}
+Autor::~Autor() { /*qtdAutor--;*/}
 
 short Autor::getCodigo() { return cod_Autor;}
 

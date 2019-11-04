@@ -22,7 +22,7 @@ public:
     Autor();
     //Destrutor
     ~Autor();
-    static int qtdAutor;
+//    static int qtdAutor;
     //toString
     string toString();
 private:

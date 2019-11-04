@@ -14,14 +14,14 @@ Livro::Livro(string titulo, string assunto, int cota, string editora, Autor *aut
     this->isbn  = isbn;
     for (short i = 0; i < sizeof(exemplares); i++)
         this->exemplares[i] = exemplares[i];
-    qtdLivro++;
+//    qtdLivro++;
 }
 
 Livro::Livro():Documento("","",0,""){
     Livro("","",0,"",NULL,"",NULL);
 }
 
-Livro::~Livro() { qtdLivro--;}
+Livro::~Livro() { /*qtdLivro--;*/}
 
 Autor* Livro::getAutor()                    { return autor;     }
 

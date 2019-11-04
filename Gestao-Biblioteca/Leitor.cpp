@@ -16,11 +16,12 @@ Leitor::Leitor(short cod_leitor, string nome, char categoria, short prioridade, 
     this->prioridade = prioridade;
     this->data_inscr = data_inscr;
     this->validade   = validade;
+//    qtdLeitor++;
 }
 
 Leitor::Leitor() { Leitor(0,"",0,0,"","");}
 
-Leitor::~Leitor() { qtdLeitor--;}
+Leitor::~Leitor() { /*qtdLeitor--;*/}
 
 short Leitor::getCodigo()       { return cod_leitor;}
 

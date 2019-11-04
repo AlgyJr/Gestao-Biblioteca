@@ -20,7 +20,7 @@ public:
     Revista(string titulo, string assunto, int cota, string editora, string issn, string url, Exemplar* exemplares[]);
     Revista();
     ~Revista();
-    static int qtdRev;
+//    static int qtdRev;
 private:
     string issn;
     string url;

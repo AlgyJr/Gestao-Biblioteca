@@ -18,7 +18,7 @@ public:
     Monografia(string titulo, string assunto, int cota, string editora, string curso, Exemplar *exemplares[]);
     Monografia();
     ~Monografia();
-    static int qtdMono;
+//    static int qtdMono;
 private:
     string curso;
     Exemplar *exemplares[max];

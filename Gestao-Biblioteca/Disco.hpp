@@ -17,30 +17,29 @@ using namespace std;
 
 class Disco:public Documento {
 public:
-    Disco(string titulo, string assunto, int cota, string editora, float duracao,string idioma, Exemplar exemplares):Documento(titulo, assunto, cota, editora){
-        this->duracao    = duracao;
-        this->idioma     = idioma;
-        this->exemplares = exemplares;
-    };
-//    Disco():Documento("","",0,""){
-//        Disco("","",0,"",0,"",NULL);
-//    };
+    //Construtor
+    Disco(string titulo, string assunto, int cota, string editora, float duracao,string idioma, Exemplar *exemplares[]);
+    //Segundo Construtor
+    Disco();
+    //Destrutor
     ~Disco();
-protected:
-    int duracao;
-    string idioma;
-    Exemplar exemplares;
-    //métodos
-    //gets
-    int getDuracao();
-    string getIdioma();
-    Exemplar getExemplares();
-    //sets
-    void setDuracao(int);
-    void setIdioma(string);
-    void setExemplares(Exemplar);
     //toString
     string toString();
-    };
+private:
+    //MARK: Métodos
+    //gets
+    float getDuracao(); //em minutos
+    string getIdioma();
+    Exemplar** getExemplares();
+    //sets
+    void setDuracao(float);
+    void setIdioma(string);
+    void setExemplares(Exemplar*[]);
+    
+protected:
+    float duracao;
+    string idioma;
+    Exemplar* exemplares[max];
+};
 
 #endif /* Disco_hpp */

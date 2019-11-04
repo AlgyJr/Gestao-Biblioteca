@@ -17,34 +17,29 @@ using namespace std;
 class Leitor {
 public:
     //Construtor
-    Leitor(string nome, string cod_leitor, short categoria, short prioridade, string data_inscr, string validade) {
-        this->nome       = nome;
-        this->cod_leitor = cod_leitor;
-        this->categoria  = categoria;
-        this->prioridade = prioridade;
-        this->data_inscr = data_inscr;
-        this->validade   = validade;
-    };
+    Leitor(short cod_leitor, string nome, char categoria, short prioridade, string data_inscr, string validade);
+    Leitor();
     //Destrutor
     ~Leitor();
+    static int qtdLeitor;
 private:
+    short cod_leitor;
     string nome;
-    string cod_leitor;
-    short categoria;
+    char categoria;
     short prioridade;
     string data_inscr;
     string validade;
     //gets
+    short getCodigo();
     string getNome();
-    string getCodigo();
-    short getCategoria();
+    char getCategoria();
     short getPrioridade();
     string getData_inscr();
     string getValidade();
     //sets
+    void setCodigo(short cod_leitor);
     void setNome(string nome);
-    void setCodigo(string cod_leitor);
-    void setCategoria(short categoria);
+    void setCategoria(char categoria);
     void setPrioridade(short prioridade);
     void setData_inscr(string data_inscr);
     void setValidade(string validade);

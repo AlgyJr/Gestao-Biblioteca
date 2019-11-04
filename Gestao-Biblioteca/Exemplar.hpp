@@ -16,26 +16,26 @@ using namespace std;
 
 class Exemplar {
 public:
-    Exemplar(string codigo, short ratingConser, short bloco) {
-        this->codigo       = codigo;
-        this->ratingConser = ratingConser;
-        this->bloco        = bloco;
-    }
+    //Construtor
+    Exemplar(short codigo, short ratingConser, short bloco);
+    //Segundo Construtor
+    Exemplar();
+    //Destrutor
     ~Exemplar();
+    //toString
+    string toString();
 private:
-    string codigo;
+    short codigo;
     short ratingConser;
     short bloco;
     //gets
-    string getCodigo();
+    short getCodigo();
     short getConserva();
     short getBloco();
     //sets
-    void setCodigo(string codigo);
+    void setCodigo(short codigo);
     void setConserva(short ratingConser);
     void setBloco(short bloco);
-    //toString
-    string toString();
 };
 
 #endif /* Exemplar_hpp */

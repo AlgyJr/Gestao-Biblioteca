@@ -8,6 +8,7 @@
 
 #ifndef Documento_hpp
 #define Documento_hpp
+#define max 10
 
 #include <stdio.h>
 #include <iostream>
@@ -17,24 +18,14 @@ using namespace std;
 class Documento {
 public:
     //Inicialização do construtor
-    Documento(string titulo, string assunto, int cota, string editora) {
-        this->titulo    = titulo;
-        this->assunto   = assunto;
-        this->cota      = cota;
-        this->editora   = editora;
-    }
-//    Documento() {
-//        this("","",0,"");
-//    };
+    Documento(string titulo, string assunto, int cota, string editora);
+    Documento();
     //Destrutor
     ~Documento();
+    //toString
+    string toString();
 private:
     //gets
-protected:
-    string titulo;
-    string assunto;
-    int cota;
-    string editora;
     //métodos
     //gets
     string getTitulo();
@@ -46,8 +37,12 @@ protected:
     void setAssunto(string);
     void setCota(int);
     void setEditora(string);
-    //toString
-    string toString();
+    
+protected:
+    string titulo;
+    string assunto;
+    int cota;
+    string editora;
 };
 
 #endif /* Documento_hpp */

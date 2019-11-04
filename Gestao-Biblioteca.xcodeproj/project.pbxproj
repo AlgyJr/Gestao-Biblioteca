@@ -19,6 +19,8 @@
 		656C8D8923517FC900AEF70F /* Livro.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 656C8D8723517FC900AEF70F /* Livro.cpp */; };
 		656C8D8C2351805A00AEF70F /* Revista.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 656C8D8A2351805A00AEF70F /* Revista.cpp */; };
 		658ECCD92362F00D00222A10 /* Monografia.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 658ECCD72362F00D00222A10 /* Monografia.cpp */; };
+		65E33938236F9E3100D6B382 /* Validacoes.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 65E33936236F9E3100D6B382 /* Validacoes.cpp */; };
+		65E3393B236F9E5500D6B382 /* Tarefas.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 65E33939236F9E5500D6B382 /* Tarefas.cpp */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -58,6 +60,10 @@
 		656C8D8B2351805A00AEF70F /* Revista.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = Revista.hpp; sourceTree = "<group>"; };
 		658ECCD72362F00D00222A10 /* Monografia.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = Monografia.cpp; sourceTree = "<group>"; };
 		658ECCD82362F00D00222A10 /* Monografia.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = Monografia.hpp; sourceTree = "<group>"; };
+		65E33936236F9E3100D6B382 /* Validacoes.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = Validacoes.cpp; sourceTree = "<group>"; };
+		65E33937236F9E3100D6B382 /* Validacoes.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = Validacoes.hpp; sourceTree = "<group>"; };
+		65E33939236F9E5500D6B382 /* Tarefas.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = Tarefas.cpp; sourceTree = "<group>"; };
+		65E3393A236F9E5500D6B382 /* Tarefas.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = Tarefas.hpp; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -110,6 +116,10 @@
 				65677088235DAB3C00428A49 /* Autor.cpp */,
 				65677089235DAB3C00428A49 /* Autor.hpp */,
 				656C8D8A2351805A00AEF70F /* Revista.cpp */,
+				65E33936236F9E3100D6B382 /* Validacoes.cpp */,
+				65E33939236F9E5500D6B382 /* Tarefas.cpp */,
+				65E3393A236F9E5500D6B382 /* Tarefas.hpp */,
+				65E33937236F9E3100D6B382 /* Validacoes.hpp */,
 				656C8D8B2351805A00AEF70F /* Revista.hpp */,
 				65677085235DAB0C00428A49 /* Exemplar.cpp */,
 				65677086235DAB0C00428A49 /* Exemplar.hpp */,
@@ -180,10 +190,12 @@
 				65677087235DAB0C00428A49 /* Exemplar.cpp in Sources */,
 				65677093235DAD4700428A49 /* DVD.cpp in Sources */,
 				658ECCD92362F00D00222A10 /* Monografia.cpp in Sources */,
+				65E3393B236F9E5500D6B382 /* Tarefas.cpp in Sources */,
 				6520F4B8236683EF00C4CC9D /* Leitor.cpp in Sources */,
 				65588BDC234A847C009F62C5 /* Documento.cpp in Sources */,
 				65677090235DACFB00428A49 /* ExemplarLivro.cpp in Sources */,
 				65588BD4234A845F009F62C5 /* main.cpp in Sources */,
+				65E33938236F9E3100D6B382 /* Validacoes.cpp in Sources */,
 				656C8D8923517FC900AEF70F /* Livro.cpp in Sources */,
 				656C8D8623517E6D00AEF70F /* Disco.cpp in Sources */,
 			);
@@ -196,6 +208,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
+				ARCHS = "$(ARCHS_STANDARD)";
 				CLANG_ANALYZER_NONNULL = YES;
 				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
@@ -254,6 +267,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
+				ARCHS = "$(ARCHS_STANDARD)";
 				CLANG_ANALYZER_NONNULL = YES;
 				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
@@ -304,6 +318,7 @@
 		65588BD8234A845F009F62C5 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				ARCHS = "$(ARCHS_STANDARD)";
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = Y8VL32NSSA;
 				ENABLE_HARDENED_RUNTIME = YES;
@@ -314,6 +329,7 @@
 		65588BD9234A845F009F62C5 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				ARCHS = "$(ARCHS_STANDARD)";
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = Y8VL32NSSA;
 				ENABLE_HARDENED_RUNTIME = YES;

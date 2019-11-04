@@ -15,26 +15,20 @@
 
 class Monografia:public Documento {
 public:
-    Monografia(string titulo, string assunto, int cota, string editora, string curso, Exemplar exemplares):Documento(titulo, assunto, cota, editora){
-        this->curso      = curso;
-        this->exemplares = exemplares;
-        qtdMono++;
-    };
-//    Monografia():Documento("","",0,""){
-//        this("","",0,"","",NULL);
-//    };
+    Monografia(string titulo, string assunto, int cota, string editora, string curso, Exemplar *exemplares[]);
+    Monografia();
     ~Monografia();
     static int qtdMono;
 private:
     string curso;
-    Exemplar exemplares;
-    //métodos
+    Exemplar *exemplares[max];
+    //MARK: Métodos
     //gets
     string getCurso();
-    Exemplar getExemplar();
+    Exemplar** getExemplar();
     //sets
     void setCurso(string);
-    void setExemplares(Exemplar);
+    void setExemplares(Exemplar*[]);
     //toString
     string toString();
 };

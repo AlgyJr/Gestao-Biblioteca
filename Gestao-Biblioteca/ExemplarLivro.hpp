@@ -15,16 +15,18 @@
 
 struct ExemplarLivro:public Exemplar {
 public:
-    ExemplarLivro(string codigo, short ratingConser, short bloco, Leitor lastReader):Exemplar(codigo, ratingConser, bloco) {
-        this->lastReader = lastReader;
-    }
+    ExemplarLivro(short codigo, short ratingConser, short bloco, Leitor *lastReader, bool emprestado);
+    ExemplarLivro();
     ~ExemplarLivro();
 private:
-    Leitor lastReader;
+    Leitor *lastReader;
+    bool emprestado;
     //get
-    Leitor getLastReader();
+    Leitor* getLastReader();
+    bool getSituacao();
     //set
-    void setLastReader(Leitor lastReader);
+    void setLastReader(Leitor*);
+    void setSituacao(bool situacao);
     //toString
     string toString();
 };

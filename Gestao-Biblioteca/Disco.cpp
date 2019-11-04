@@ -7,3 +7,44 @@
 //
 
 #include "Disco.hpp"
+#include <sstream>
+
+Disco::Disco(string titulo, string assunto, int cota, string editora, float duracao,string idioma, Exemplar *exemplares[]):Documento(titulo, assunto, cota, editora){
+    this->duracao    = duracao;
+    this->idioma     = idioma;
+    for (short i = 0; i < sizeof(exemplares); i++)
+        this->exemplares[i] = exemplares[i];
+}
+
+Disco::Disco():Documento("","",0,""){ Disco("","",0,"",0,"",NULL);}
+
+Disco::~Disco(){}
+
+float Disco::getDuracao()         { return duracao;   }
+
+string Disco::getIdioma()         { return idioma;    }
+
+Exemplar** Disco::getExemplares() { return exemplares;}
+
+void Disco::setDuracao(float duracao) {
+    if (duracao != 0.0)
+        this->duracao = duracao;
+}
+
+void Disco::setIdioma(string idioma) {
+    if (!idioma.empty())
+        this->idioma = idioma;
+}
+
+void Disco::setExemplares(Exemplar* exemplares[]) {
+    for (short i = 0; i < sizeof(exemplares); i++) {
+        this->exemplares[i] = exemplares[i];
+    }
+}
+
+string Disco::toString() {
+    stringstream str;
+    str<<Documento::toString()<<"\nDuração: "<<duracao<<"\nIdioma: "<<idioma;
+    //.str() devolve a string
+    return  str.str();
+}

@@ -15,12 +15,8 @@
 class CD:public Disco {
 public:
     //Construtor
-    CD(string titulo, string assunto, int cota, string editora, float duracao,string idioma, Exemplar exemplares):Disco(titulo, assunto, cota, editora, duracao, idioma, exemplares){
-        qtdCD++;
-    };
-//    CD():Disco("","",0,"",0,"",NULL){
-//        this("","",0,"",0,"",NULL);
-//    };
+    CD(string titulo, string assunto, int cota, string editora, float duracao,string idioma, Exemplar *exemplares[]);
+    CD();
     //Destrutor
     ~CD();
     static int qtdCD;

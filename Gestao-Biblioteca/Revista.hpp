@@ -17,30 +17,23 @@
 using namespace std;
 class Revista:public Documento {
 public:
-    Revista(string titulo, string assunto, int cota, string editora, string issn, string url, Exemplar exemplares):Documento(titulo, assunto, cota, editora){
-        this->issn       = issn;
-        this->url        = url;
-        this->exemplares = exemplares;
-        qtdRev++;
-    };
-//    Revista():Documento("","",0,""){
-//        this("","",0,"","","",NULL);
-//    };
+    Revista(string titulo, string assunto, int cota, string editora, string issn, string url, Exemplar* exemplares[]);
+    Revista();
     ~Revista();
     static int qtdRev;
 private:
     string issn;
     string url;
-    Exemplar exemplares;
-    //métodos
+    Exemplar* exemplares[max];
+    //MARK: Métodos
     //gets
     string getISSN();
     string getURL();
-    Exemplar getExemplares();
+    Exemplar** getExemplares();
     //sets
     void setISSN(string);
     void setURL(string);
-    void setExemplares(Exemplar);
+    void setExemplares(Exemplar*[]);
     //toString()
     string toString();
 };

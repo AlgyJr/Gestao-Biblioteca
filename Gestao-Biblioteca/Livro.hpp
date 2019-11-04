@@ -18,29 +18,23 @@ using namespace std;
 class Livro:public Documento {
 public:
     //Construtor
-    Livro(string titulo, string assunto, int cota, string editora, Autor autor, string isbn, ExemplarLivro exemplares):Documento(titulo, assunto, cota, editora) {
-        this->autor = autor;
-        this->isbn  = isbn;
-        qtdLivro++;
-    };
-//    Livro():Documento("","",0,""){
-//        this("","",0,"",NULL,"",NULL);
-//    };
+    Livro(string titulo, string assunto, int cota, string editora, Autor *autor, string isbn, ExemplarLivro *exemplares[]);
+    Livro();
     ~Livro();
     static int qtdLivro;
 private:
-    Autor autor;
+    Autor *autor;
     string isbn;
-    ExemplarLivro exemplares;
+    ExemplarLivro *exemplares[max];
     //métodos
     //gets
-    Autor getAutor();
+    Autor* getAutor();
     string getISBN();
-    ExemplarLivro getExemplaresLivro();
+    ExemplarLivro** getExemplaresLivro();
     //sets
-    void setAutor(Autor);
+    void setAutor(Autor*);
     void setISBN(string);
-    void setExemplares(ExemplarLivro);
+    void setExemplares(ExemplarLivro*[]);
     //toString
     string toString();
 };

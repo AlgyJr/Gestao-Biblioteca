@@ -10,19 +10,15 @@
 #define DVD_hpp
 
 #include "Disco.hpp"
+#include "DVD.hpp"
 #include <stdio.h>
 
 //Subclass DVD
 class DVD:public Disco {
 public:
     //Construtor
-    DVD(string titulo, string assunto, int cota, string editora, int duracao,string idioma, Exemplar exemplares, int qualidade):Disco(titulo, assunto, cota, editora, duracao, idioma, exemplares){
-        this->qualidade = qualidade;
-        qtdDVD++;
-    };
-//    DVD():Disco("","",0,"",0,"",NULL){
-//        this("","",0,"",0,"",NULL,0);
-//    };
+    DVD(string titulo, string assunto, int cota, string editora, float duracao,string idioma, Exemplar *exemplares[], int qualidade);
+    DVD();
     ~DVD();
     static int qtdDVD;
 private:

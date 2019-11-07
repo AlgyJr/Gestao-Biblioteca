@@ -12,8 +12,8 @@
 Revista::Revista(string titulo, string assunto, int cota, string editora, string issn, string url, Exemplar* exemplares[]):Documento(titulo, assunto, cota, editora){
     this->issn       = issn;
     this->url        = url;
-    for (short i = 0; i < sizeof(exemplares); i++)
-        this->exemplares[i] = exemplares[i];
+//    for (short i = 0; i < sizeof(exemplares); i++)
+//        this->exemplares[i] = exemplares[i];
 //    qtdRev++;
 }
 

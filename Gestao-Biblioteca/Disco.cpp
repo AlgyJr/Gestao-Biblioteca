@@ -12,8 +12,8 @@
 Disco::Disco(string titulo, string assunto, int cota, string editora, float duracao,string idioma, Exemplar *exemplares[]):Documento(titulo, assunto, cota, editora){
     this->duracao    = duracao;
     this->idioma     = idioma;
-    for (short i = 0; i < sizeof(exemplares); i++)
-        this->exemplares[i] = exemplares[i];
+//    for (short i = 0; i < sizeof(exemplares); i++)
+//        this->exemplares[i] = exemplares[i];
 }
 
 Disco::Disco():Documento("","",0,""){ Disco("","",0,"",0,"",NULL);}

@@ -57,8 +57,7 @@ void Tarefas::lerDoFicheiro(){
         while(getline(file,linha))// verificar se o ficheiro nao tiver chegado no fim
         {
          // para que possa ler o ficheiro linha por linha
-            
-            char* str=new char[linha.length()];
+            char* str=new char[linha.length()+1];
             strcpy(str,linha.c_str());
             titulo = strtok(str,";");
             assunto= strtok(NULL,";");
@@ -84,7 +83,7 @@ void Tarefas::lerDoFicheiro(){
                 duracao=atoi(strtok(NULL,";"));
                 cout<<idioma<<duracao;
                 criterio = strtok(NULL,";");
-                dis = dynamic_cast<Disco*>(aux);
+//                dis = dynamic_cast<Disco*>(aux);
                 if(criterio=="D") {//DVD
                     qualidade=atoi(strtok(NULL,";"));
 //                    d = dynamic_cast<DVD*>(dis);
@@ -115,19 +114,18 @@ void Tarefas::lerDoFicheiro(){
             
             if (aux == NULL) {
                 
-                if (criterio=="R")
-                    aux = r;
-                else if (criterio == "M")
-                    aux = mon;
-                else if (criterio == "D")
-                    aux = d;
-                else if (criterio == "C")
-                    aux = c;
-                else
-                    aux = l;
-                
                 aux->next = table[index];
-                table[index] = aux;
+                
+                if (criterio=="R")
+                    table[index] = r->next;
+                else if (criterio == "M")
+                    table[index] = mon->next;
+                else if (criterio == "D")
+                    table[index] = d->next;
+                else if (criterio == "C")
+                    table[index] = c->next;
+                else
+                    table[index] = l->next;
             }
         }
         file.close();
@@ -151,7 +149,7 @@ Revista* Tarefas::criarObjectRevista(string titulo, string assunto, int cota, st
     rev->setEditora(editora);
     rev->setISSN(issn);
     rev->setURL(url);
-    rev->setExemplares(exemplares);
+//    rev->setExemplares(exemplares);
     
     return rev;
 }
@@ -163,7 +161,7 @@ Monografia* Tarefas:: criarObjectMonografia(string titulo, string assunto, int c
     mono->setCota(cota);
     mono->setEditora(editora);
     mono->setCurso(curso);
-    mono->setExemplares(exemplares);
+//    mono->setExemplares(exemplares);
     
     return mono;
 }
@@ -177,7 +175,7 @@ DVD* Tarefas::criarObjectDVD(string titulo, string assunto, int cota, string edi
     dvd->setIdioma(idioma);
     dvd->setDuracao(duracao);
     dvd->setQualidade(qualidade);
-    dvd->setExemplares(exemplares);
+//    dvd->setExemplares(exemplares);
     
     return dvd;
 }
@@ -188,20 +186,20 @@ CD* Tarefas::criarObjectCD(string titulo, string assunto, int cota, string edito
     cd->setEditora(editora);
     cd->setIdioma(idioma);
     cd->setDuracao(duracao);
-    cd->setExemplares(exemplares);
+//    cd->setExemplares(exemplares);
     
     return cd;
 }
     
 Livro* Tarefas::criarObjectLivro(string titulo,string assunto,int cota,string editora,Autor *autor,string isbn, ExemplarLivro* exemplaresLivro[]){
-    Livro *livro=new Livro();
+    Livro *livro = new Livro();
     livro->setTitulo(titulo);
     livro->setAssunto(assunto);
     livro->setCota(cota);
     livro->setEditora(editora);
     livro->setAutor(autor);
     livro->setISBN(isbn);
-    livro->setExemplares(exemplaresLivro);
+//    livro->setExemplares(exemplaresLivro);
     
     return livro;
 }
@@ -217,21 +215,24 @@ void Tarefas::printDocTable() {
     for (int i = 0; i < maxDocs; i++) {
         aux = table[i];
         while (aux != NULL) {
-            if (l = dynamic_cast<Livro*>(aux)) { //Se é Livro
-                l->toString();
-            } else if (m = dynamic_cast<Monografia*>(aux)) {//Se é Monografia
-                m->toString();
-            }else if (dis = dynamic_cast<Disco*>(aux)) {//Se é Disco
-                if (d = dynamic_cast<DVD*>(dis)){//Se é DVD
-                    d->toString();
+            if (typeid(*aux) == typeid(*l)) { //Se é Livro
+                l = static_cast<Livro*>(aux);
+                cout<<l->toString();
+            } else if (typeid(*aux) == typeid(*m)) {//Se é Monografia
+                m = static_cast<Monografia*>(aux);
+                cout<<m->toString();
+            }else if (typeid(*aux) == typeid(*dis)) {//Se é Disco
+                dis = static_cast<Disco*>(aux);
+                if (typeid(*dis) == typeid(*d)){//Se é DVD
+                    d = static_cast<DVD*>(dis);
+                    cout<<d->toString();
                 }else {
-                    c = dynamic_cast<CD*>(dis);
-                    c->toString();
+                    c = static_cast<CD*>(dis);
+                    cout<<c->toString();
                 }
             } else {//Se for Revista
-                r = dynamic_cast<Revista*>(aux);
-                r->toString();
-                aux = aux->next;
+                r = static_cast<Revista*>(aux);
+                cout<<r->toString();
             }
             
             aux = aux->next;
@@ -269,7 +270,7 @@ short Tarefas::posDoc(char criterio) {
 
 bool Tarefas::equalDoc() {
     //Falta saber que criterios de chave unica iremos usar para comparar se é igual(se ja existe)
-    return false;
+    return true;
 }
 
 

@@ -21,6 +21,7 @@ public:
     Revista();
     ~Revista();
 //    static int qtdRev;
+    Revista *next;
     //MARK: Métodos
     //gets
     string getISSN();

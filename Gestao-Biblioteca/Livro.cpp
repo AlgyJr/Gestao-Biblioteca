@@ -12,8 +12,8 @@
 Livro::Livro(string titulo, string assunto, int cota, string editora, Autor *autor, string isbn, ExemplarLivro *exemplares[]):Documento(titulo, assunto, cota, editora) {
     this->autor = autor;
     this->isbn  = isbn;
-    for (short i = 0; i < sizeof(exemplares); i++)
-        this->exemplares[i] = exemplares[i];
+//    for (short i = 0; i < sizeof(exemplares); i++)
+//        this->exemplares[i] = exemplares[i];
 //    qtdLivro++;
 }
 

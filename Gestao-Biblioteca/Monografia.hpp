@@ -19,6 +19,7 @@ public:
     Monografia();
     ~Monografia();
 //    static int qtdMono;
+    Monografia *next;
     //MARK: Métodos
     //gets
     string getCurso();

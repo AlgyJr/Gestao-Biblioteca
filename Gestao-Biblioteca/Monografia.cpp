@@ -12,8 +12,8 @@
 
 Monografia::Monografia(string titulo, string assunto, int cota, string editora, string curso, Exemplar *exemplares[]):Documento(titulo, assunto, cota, editora){
     this->curso = curso;
-    for (short i = 0; i < sizeof(exemplares); i++)
-        this->exemplares[i] = exemplares[i];
+//    for (short i = 0; i < sizeof(exemplares); i++)
+//        this->exemplares[i] = exemplares[i];
 //    qtdMono++;
 }
 

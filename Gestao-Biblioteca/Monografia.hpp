@@ -19,9 +19,6 @@ public:
     Monografia();
     ~Monografia();
 //    static int qtdMono;
-private:
-    string curso;
-    Exemplar *exemplares[max];
     //MARK: Métodos
     //gets
     string getCurso();
@@ -31,6 +28,11 @@ private:
     void setExemplares(Exemplar*[]);
     //toString
     string toString();
+    
+private:
+    string curso;
+    Exemplar *exemplares[max];
+    
 };
 
 #endif /* Monografia_hpp */

@@ -21,11 +21,8 @@ public:
     Documento(string titulo, string assunto, int cota, string editora);
     Documento();
     //Destrutor
-    ~Documento();
-    //toString
-    string toString();
-private:
-    //gets
+    //virtual para permitir Documento ser polimórfico
+    virtual ~Documento();
     //métodos
     //gets
     string getTitulo();
@@ -37,6 +34,9 @@ private:
     void setAssunto(string);
     void setCota(int);
     void setEditora(string);
+    //toString
+    string toString();
+    Documento *next;
     
 protected:
     string titulo;

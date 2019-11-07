@@ -6,20 +6,17 @@
 //  Copyright © 2019 ALgy Aly. All rights reserved.
 //
 
-#include "Revista.hpp"
-#include "DVD.hpp"
-#include "CD.hpp"
-#include "Livro.hpp"
-#include "Autor.hpp"
-#include "Leitor.hpp"
-
+#include "Tarefas.hpp"
 
 int main() {
     // insert code here...
     
     //Arrays que servirão de catalogo de todos autores de livros e outro de Leitores
-    Leitor* catalogoLeitor[999];
-    Autor* catalogoAutor[100];
+//    string *catalogoLeitor[999];
+//    string *catalogoAutor[100];
+    
+    //E executa o construtor, onde irá executar logo de inicio lerFicheiro()
+    Tarefas tar;
     
     return 0;
 }

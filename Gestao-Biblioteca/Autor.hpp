@@ -17,24 +17,25 @@ using namespace std;
 class Autor {
 public:
     //Construtor
-    Autor(short cod_Autor, string nome);
+    Autor(int cod_Autor, string nome);
     //Segundo construtor
     Autor();
     //Destrutor
     ~Autor();
 //    static int qtdAutor;
+    //gets
+    int getCodigo();
+    string getNome();
+    //sets
+    void setCodigo(int);
+    void setNome(string);
     //toString
     string toString();
 private:
-    short cod_Autor;
+    //MARK: Properties
+    int cod_Autor;
     string nome;
     
-    //gets
-    short getCodigo();
-    string getNome();
-    //sets
-    void setCodigo(short);
-    void setNome(string);
 };
 
 #endif /* Autor_hpp */

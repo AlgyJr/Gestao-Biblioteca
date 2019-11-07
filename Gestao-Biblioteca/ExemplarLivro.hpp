@@ -11,9 +11,8 @@
 
 #include "Exemplar.hpp"
 #include "Leitor.hpp"
-#include <stdio.h>
 
-struct ExemplarLivro:public Exemplar {
+class ExemplarLivro:public Exemplar {
 public:
     ExemplarLivro(short codigo, short ratingConser, short bloco, Leitor *lastReader, bool emprestado);
     ExemplarLivro();

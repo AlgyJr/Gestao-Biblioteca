@@ -20,7 +20,6 @@ public:
     //Destrutor
     ~CD();
 //    static int qtdCD;
-private:
     //toString
     string toString();
 };

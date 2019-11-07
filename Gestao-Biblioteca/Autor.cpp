@@ -9,7 +9,7 @@
 #include "Autor.hpp"
 #include <sstream>
 
-Autor::Autor(short cod_Autor, string nome){
+Autor::Autor(int cod_Autor, string nome){
     this->cod_Autor = cod_Autor;
     this->nome      = nome;
 //    qtdAutor++;
@@ -21,11 +21,11 @@ Autor::Autor() {
 
 Autor::~Autor() { /*qtdAutor--;*/}
 
-short Autor::getCodigo() { return cod_Autor;}
+int Autor::getCodigo() { return cod_Autor;}
 
 string Autor::getNome()   { return nome;     }
 
-void Autor::setCodigo(short cod_Autor) {
+void Autor::setCodigo(int cod_Autor) {
     if (cod_Autor > 0)
         this->cod_Autor = cod_Autor;
 }

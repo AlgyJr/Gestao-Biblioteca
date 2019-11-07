@@ -19,7 +19,7 @@ CD::CD():Disco("","",0,"",0,"",NULL){
 
 CD::~CD() { /*qtdCD--;*/}
 
-string CD::Disco::toString() {
+string CD::toString() {
 //    stringstream str;
 //    str<<Disco::toString();
     return Disco::toString();

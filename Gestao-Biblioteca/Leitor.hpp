@@ -9,7 +9,6 @@
 #ifndef Leitor_hpp
 #define Leitor_hpp
 
-#include <stdio.h>
 #include <iostream>
 
 using namespace std;
@@ -22,21 +21,14 @@ public:
     //Destrutor
     ~Leitor();
 //    static int qtdLeitor;
-private:
-    short cod_leitor;
-    string nome;
-    char categoria;
-    short prioridade;
-    string data_inscr;
-    string validade;
-    //gets
+    //MARK: gets
     short getCodigo();
     string getNome();
     char getCategoria();
     short getPrioridade();
     string getData_inscr();
     string getValidade();
-    //sets
+    //MARK: sets
     void setCodigo(short cod_leitor);
     void setNome(string nome);
     void setCategoria(char categoria);
@@ -45,6 +37,18 @@ private:
     void setValidade(string validade);
     //toString
     string toString();
+    
+private:
+    //MARK: Properties
+    short cod_leitor;
+    string nome;
+    char categoria;
+    short prioridade;
+    string data_inscr;
+    string validade;
+    //apontador
+//    Livro nodeLivroEmprestado;
+    
 };
 
 #endif /* Leitor_hpp */

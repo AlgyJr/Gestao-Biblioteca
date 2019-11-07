@@ -21,10 +21,6 @@ public:
     Revista();
     ~Revista();
 //    static int qtdRev;
-private:
-    string issn;
-    string url;
-    Exemplar* exemplares[max];
     //MARK: Métodos
     //gets
     string getISSN();
@@ -36,6 +32,12 @@ private:
     void setExemplares(Exemplar*[]);
     //toString()
     string toString();
+    
+private:
+    string issn;
+    string url;
+    Exemplar* exemplares[max];
+    
 };
 
 #endif /* Revista_hpp */

@@ -22,10 +22,8 @@ public:
     //Segundo Construtor
     Disco();
     //Destrutor
-    ~Disco();
-    //toString
-    string toString();
-private:
+    //virtual para permitir Documento ser polimórfico
+    virtual ~Disco();
     //MARK: Métodos
     //gets
     float getDuracao(); //em minutos
@@ -35,6 +33,8 @@ private:
     void setDuracao(float);
     void setIdioma(string);
     void setExemplares(Exemplar*[]);
+    //toString
+    string toString();
     
 protected:
     float duracao;

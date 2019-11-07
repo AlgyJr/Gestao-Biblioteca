@@ -12,7 +12,8 @@
 #include "Documento.hpp"
 #include "Autor.hpp"
 #include "ExemplarLivro.hpp"
-#include <stdio.h>
+
+
 using namespace std;
 
 class Livro:public Documento {
@@ -21,11 +22,8 @@ public:
     Livro(string titulo, string assunto, int cota, string editora, Autor *autor, string isbn, ExemplarLivro *exemplares[]);
     Livro();
     ~Livro();
+    Livro *next;
 //    static int qtdLivro;
-private:
-    Autor *autor;
-    string isbn;
-    ExemplarLivro *exemplares[max];
     //métodos
     //gets
     Autor* getAutor();
@@ -37,6 +35,10 @@ private:
     void setExemplares(ExemplarLivro*[]);
     //toString
     string toString();
+private:
+    Autor *autor;
+    string isbn;
+    ExemplarLivro *exemplares[max];
 };
 
 #endif /* Livro_hpp */

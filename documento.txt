@@ -1,0 +1,19 @@
+Orgulho e preconceito;Transcende o preconceito causados pelas falsas primeiras impressoes;1;T.Egerton Whitehall;L;1111;Jane Austen;979955746
+O Alegre canto da perdiz;Auto-descoberta;2;Nadjira;L;1234;Paulina Chiziane;999212990
+Meledina;historia de uma sobrevivente;3;Nadjira;L;1332;Aldino Muianga;978902479
+Balada de amor ao vento;Historia de amor da juventude a idade madura;25;Nadjira;L;1778;Paulina Chiziane;991002348
+O principe;Tratado politico ou obra de historia de filosofia;3;Classica;L;1020;Maquiavel;978972561
+Morri para viver;Superacao de sonhos frustrados;4;Planeta;L;1768;Andressa Urach;977885422
+Avon;Produtos cosmeticos;5;Vogue;R;992235589;www.avon.com.br
+Vogue;Moda;6;Edward Enninfiul;R;900751127;www.vogue.co.uk
+Redes de computador;aprender varios computadores a comunicarem entre si;16;Burgoseletronica;I;Portugues;39;D;1048
+Economia;Fundamentos da ciencia economica;22;aprococursos;I;Portugues;40;D;1048
+Windows;configuracao;21;Saraiva;C
+Informatica;Como escrever para web;11;Classica;L;1664;Guillermo Franco;93229999
+Manual OpenOffice;Criacao de documento no microcomputador;13;Classica;L;1125;Marco Antonio;98832290
+Filosofia;Ideias fundamentais para o pensamento filosofico;15;Companhia das letras;L;1900;Paulo Cesar de Souza;978852504
+Direito Civil;Estudo para bacharelato de consulta profissionais do direito;19;Saraiva;L;1233;Silvio De Salvo;99996754
+Impacto de lideranca de desempenho das organizacoes;Lideranca;20;----;M;Gestao de Empresas
+Impacto das Instituições Microfinanceiras no desenvolvimento económico em Moçambique;estudo de caso do Banco ProCredit de Moçambique;23;----;M;Gestao de Empresas
+Diagnostico dermatologia;Dermatologia;10;Elsevier;R;978849113;https://tienda.elsevier.es/diagnostico-por-imagem
+Dados temporal e Modelo de relacao;Assunto;12;Elsevier;R;978155860;https://www.elsevier.com/books/temporal-data-and-the relational-model

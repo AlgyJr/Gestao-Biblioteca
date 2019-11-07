@@ -21,14 +21,16 @@ public:
     DVD();
     ~DVD();
 //    static int qtdDVD;
-private:
-    int qualidade;
     //Gets
     int getQualidade();
     //Sets
     void setQualidade(int);
     //toString
     string toString();
+    
+private:
+    int qualidade;
+    
 };
 
 #endif /* DVD_hpp */

@@ -22,12 +22,6 @@ public:
     Exemplar();
     //Destrutor
     ~Exemplar();
-    //toString
-    string toString();
-private:
-    short codigo;
-    short ratingConser;
-    short bloco;
     //gets
     short getCodigo();
     short getConserva();
@@ -36,6 +30,14 @@ private:
     void setCodigo(short codigo);
     void setConserva(short ratingConser);
     void setBloco(short bloco);
+    //toString
+    string toString();
+    
+private:
+    short codigo;
+    short ratingConser;
+    short bloco;
+    
 };
 
 #endif /* Exemplar_hpp */

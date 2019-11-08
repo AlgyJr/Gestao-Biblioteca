@@ -7,7 +7,6 @@
 //
 
 #include "Exemplar.hpp"
-#include <sstream>
 
 Exemplar::Exemplar(short codigo, short ratingConser, short bloco) {
     this->codigo       = codigo;
@@ -40,8 +39,6 @@ void Exemplar::setBloco(short bloco) {
         this->bloco = bloco;
 }
 
-string Exemplar::toString() {
-    stringstream str;
-    str<<"\nCódigo: "<<codigo<<"\nRating Conservação: "<<ratingConser<<"\nBloco: "<<bloco;
-    return str.str();
+void Exemplar::toString() {
+    cout<<"\nCódigo: "<<codigo<<"\nRating Conservação: "<<ratingConser<<"\nBloco: "<<bloco;
 }

@@ -8,7 +8,6 @@
 
 #include "Monografia.hpp"
 #include "Documento.hpp"
-#include <sstream>
 
 Monografia::Monografia(string titulo, string assunto, int cota, string editora, string curso, Exemplar *exemplares[]):Documento(titulo, assunto, cota, editora){
     this->curso = curso;
@@ -36,8 +35,7 @@ void Monografia::setExemplares(Exemplar* exemplares[]) {
     }
 }
 
-string Monografia::toString() {
-    stringstream str;
-    str<<Documento::toString()<<"\nCurso: "<<curso<<endl;
-    return str.str();
+void Monografia::toString() {
+    Documento::toString();
+    cout<<"\nCurso: "<<curso<<endl;
 }

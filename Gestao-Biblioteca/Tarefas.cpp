@@ -27,6 +27,7 @@ Tarefas::Tarefas() {
     //Inicializar aqui logo que ler do ficheiro
     lerDoFicheiro();
     printDocTable();
+    cout<<"\nAcaba tudo";
 }
 
 Tarefas::~Tarefas() {}
@@ -42,7 +43,7 @@ void Tarefas::lerDoFicheiro(){
     ExemplarLivro *exemplaresLivro[max];
     Autor *autor;
     short index;
-    Documento *aux = NULL;
+    Documento *aux;
     Livro *l;
     Revista *r;
     Disco *dis;
@@ -63,7 +64,7 @@ void Tarefas::lerDoFicheiro(){
             assunto= strtok(NULL,";");
             cota = atoi(strtok(NULL,";"));
             editora= strtok(NULL,";");
-            cout<<titulo<<assunto<<cota<<editora<<endl;
+//            cout<<titulo<<assunto<<cota<<editora<<endl;
             criterio = strtok(NULL,";");
             if(criterio=="R"){//Revista
                 issn=strtok(NULL,";");
@@ -71,7 +72,8 @@ void Tarefas::lerDoFicheiro(){
 //                r = dynamic_cast<Revista*>(aux);
                 r = criarObjectRevista(titulo,assunto,cota,editora,issn,url, exemplares);
                 index = 1;
-                cout<<issn<<url;
+//                cout<<issn<<url;
+                cout<<"R";
             } else if(criterio=="M") {//monografia
                 curso=strtok(NULL,";");
 //                mon = dynamic_cast<Monografia*>(aux);
@@ -104,28 +106,40 @@ void Tarefas::lerDoFicheiro(){
                 autor = criarObjectAutor(cod_Autor, nomeA);
                 l = criarObjectLivro(titulo, assunto, cota, editora, autor, isbn, exemplaresLivro);
                 index = 0;
-                cout<<cod_Autor<<nomeA<<isbn;
+//                cout<<cod_Autor<<nomeA<<isbn;
             }
             
+            aux = NULL;
             aux = table[index];
             
-            while ((aux != NULL) && (!equalDoc()))
+            while ((aux != NULL) && (!equalDoc())) {
                 aux = aux->next;
+                cout<<"\n1";
+            }
+            
             
             if (aux == NULL) {
+                aux = new Documento;
+                
+                if (criterio=="R") {
+                    cout<<"Revista: "<<titulo;
+                    aux = r;
+                } else if (criterio == "M") {
+                    cout<<"Monografia";
+                    aux = mon;
+                } else if (criterio == "D") {
+                    cout<<"DVD";
+                    aux = d;
+                } else if (criterio == "C") {
+                    cout<<"CD";
+                    aux = c;
+                } else {
+                    cout<<"Livro: "<<titulo;
+                    aux = l;
+                }
                 
                 aux->next = table[index];
-                
-                if (criterio=="R")
-                    table[index] = r->next;
-                else if (criterio == "M")
-                    table[index] = mon->next;
-                else if (criterio == "D")
-                    table[index] = d->next;
-                else if (criterio == "C")
-                    table[index] = c->next;
-                else
-                    table[index] = l->next;
+                table[index] = aux;
             }
         }
         file.close();
@@ -134,6 +148,7 @@ void Tarefas::lerDoFicheiro(){
         cout<<"O ficheiro nao foi encontrado"<<endl;
     }
 }
+
 Autor* Tarefas::criarObjectAutor(int cod_Autor, string nomeA) {
     Autor *a = new Autor();
     a->setCodigo(cod_Autor);
@@ -215,28 +230,42 @@ void Tarefas::printDocTable() {
     for (int i = 0; i < maxDocs; i++) {
         aux = table[i];
         while (aux != NULL) {
-            if (typeid(*aux) == typeid(*l)) { //Se é Livro
+            cout<<"Start While\n";
+            string st = typeid(*aux).name();
+            if (i == 0) { //Se é do tipo Livro
+                cout<<"Livro ";
                 l = static_cast<Livro*>(aux);
-                cout<<l->toString();
-            } else if (typeid(*aux) == typeid(*m)) {//Se é Monografia
+                l->toString();
+                cout<<endl;
+            } else if (i == 2) {//Se é Monografia
+                cout<<"Monografia ";
                 m = static_cast<Monografia*>(aux);
-                cout<<m->toString();
-            }else if (typeid(*aux) == typeid(*dis)) {//Se é Disco
+                m->toString();
+                cout<<endl;
+            } else if (i == 3 || i == 4) {//Se é Disco
+                cout<<"Disco ";
                 dis = static_cast<Disco*>(aux);
-                if (typeid(*dis) == typeid(*d)){//Se é DVD
+                if (i == 3){//Se é DVD
+                    cout<<" DVD";
                     d = static_cast<DVD*>(dis);
-                    cout<<d->toString();
+                    d->toString();
+                    cout<<endl;
                 }else {
+                    cout<<"CD";
                     c = static_cast<CD*>(dis);
-                    cout<<c->toString();
+                    c->toString();
+                    cout<<endl;
                 }
             } else {//Se for Revista
+                cout<<"Revista";
                 r = static_cast<Revista*>(aux);
-                cout<<r->toString();
+                r->toString();
+                cout<<endl;
             }
             
             aux = aux->next;
         }
+        cout<<i;
     }
 }
 
@@ -270,7 +299,7 @@ short Tarefas::posDoc(char criterio) {
 
 bool Tarefas::equalDoc() {
     //Falta saber que criterios de chave unica iremos usar para comparar se é igual(se ja existe)
-    return true;
+    return false;
 }
 
 

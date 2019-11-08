@@ -32,7 +32,7 @@ public:
     void setURL(string);
     void setExemplares(Exemplar*[]);
     //toString()
-    string toString();
+    void toString();
     
 private:
     string issn;

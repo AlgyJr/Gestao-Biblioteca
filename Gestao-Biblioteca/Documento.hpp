@@ -35,7 +35,7 @@ public:
     void setCota(int);
     void setEditora(string);
     //toString
-    string toString();
+    void toString();
     Documento *next;
     
 protected:

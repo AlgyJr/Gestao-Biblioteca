@@ -7,7 +7,6 @@
 //
 
 #include "Leitor.hpp"
-#include <sstream>
 
 Leitor::Leitor(short cod_leitor, string nome, char categoria, short prioridade, string data_inscr, string validade) {
     this->cod_leitor = cod_leitor;
@@ -70,8 +69,6 @@ void Leitor::setValidade(string validade) {
         this->validade = validade;
 }
 
-string Leitor::toString() {
-    stringstream str;
-    str<<"\nCódigo Leitor: "<<cod_leitor<<"\nNome: "<<nome<<"\nCategoria: "<<categoria<<"\nPrioridade: "<<prioridade<<"\nData de Inscrição: "<<data_inscr<<"\nValidade: "<<validade;
-    return str.str();
+void Leitor::toString() {
+    cout<<"\nCódigo Leitor: "<<cod_leitor<<"\nNome: "<<nome<<"\nCategoria: "<<categoria<<"\nPrioridade: "<<prioridade<<"\nData de Inscrição: "<<data_inscr<<"\nValidade: "<<validade;
 }

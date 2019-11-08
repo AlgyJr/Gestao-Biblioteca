@@ -23,6 +23,7 @@ public:
     Tarefas();
     ~Tarefas();
     void lerDoFicheiro();
+    void inserirTable();
     Autor* criarObjectAutor(int cod_Autor, string nomeA);
     Livro* criarObjectLivro(string titulo, string assunto, int cota, string editora, Autor *autor, string isbn,ExemplarLivro *exemplares[]);
     Monografia* criarObjectMonografia(string titulo, string assunto, int cota, string editora, string curso, Exemplar *exemplares[]);

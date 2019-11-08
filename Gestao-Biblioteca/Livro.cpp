@@ -7,7 +7,6 @@
 //
 
 #include "Livro.hpp"
-#include <sstream>
 
 Livro::Livro(string titulo, string assunto, int cota, string editora, Autor *autor, string isbn, ExemplarLivro *exemplares[]):Documento(titulo, assunto, cota, editora) {
     this->autor = autor;
@@ -44,8 +43,8 @@ void Livro::setExemplares(ExemplarLivro* exemplares[]) {
         this->exemplares[i] = exemplares[i];
 }
 
-string Livro::toString() {
-    stringstream str;
-    str<<Documento::toString()<<autor->toString()<<"\nISBN: "<<isbn;
-    return str.str();
+void Livro::toString() {
+    Documento::toString();
+    autor->toString();
+    cout<<"\nISBN: "<<isbn<<endl;
 }

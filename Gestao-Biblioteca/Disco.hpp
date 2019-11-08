@@ -34,7 +34,7 @@ public:
     void setIdioma(string);
     void setExemplares(Exemplar*[]);
     //toString
-    string toString();
+    void toString();
     
 protected:
     float duracao;

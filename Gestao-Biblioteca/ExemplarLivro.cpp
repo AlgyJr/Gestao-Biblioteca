@@ -7,7 +7,6 @@
 //
 
 #include "ExemplarLivro.hpp"
-#include <sstream>
 
 ExemplarLivro::ExemplarLivro(short codigo, short ratingConser, short bloco, Leitor *lastReader, bool emprestado):Exemplar(codigo, ratingConser, bloco) {
     this->lastReader = lastReader;
@@ -22,9 +21,7 @@ bool ExemplarLivro::getSituacao(){ return emprestado;}
 
 void ExemplarLivro::setSituacao(bool emprestado) { this->emprestado = emprestado;}
 
-string ExemplarLivro::toString() {
-    stringstream str;
-    //Operação ternária
-    str<<Exemplar::toString()<< (getSituacao()? "\nSituação: Emprestado" : "\nSituação: Livre");
-    return str.str();
+void ExemplarLivro::toString() {
+    Exemplar::toString();
+    getSituacao()? cout<<"\nSituação: Emprestado" : cout<<"\nSituação: Livre";
 }

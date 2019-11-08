@@ -31,7 +31,7 @@ public:
     void setConserva(short ratingConser);
     void setBloco(short bloco);
     //toString
-    string toString();
+    void toString();
     
 private:
     short codigo;

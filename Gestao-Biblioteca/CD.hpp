@@ -22,7 +22,7 @@ public:
 //    static int qtdCD;
     CD *next;
     //toString
-    string toString();
+    void toString();
 };
 
 #endif /* CD_hpp */

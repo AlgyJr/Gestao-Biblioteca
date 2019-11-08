@@ -30,7 +30,7 @@ public:
     void setCodigo(int);
     void setNome(string);
     //toString
-    string toString();
+    void toString();
 private:
     //MARK: Properties
     int cod_Autor;

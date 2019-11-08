@@ -36,7 +36,7 @@ public:
     void setData_inscr(string data_inscr);
     void setValidade(string validade);
     //toString
-    string toString();
+    void toString();
     
 private:
     //MARK: Properties

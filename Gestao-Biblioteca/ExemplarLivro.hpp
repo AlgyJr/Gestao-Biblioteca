@@ -27,7 +27,7 @@ private:
     void setLastReader(Leitor*);
     void setSituacao(bool situacao);
     //toString
-    string toString();
+    void toString();
 };
 
 #endif /* ExemplarLivro_hpp */

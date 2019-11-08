@@ -27,7 +27,7 @@ public:
     //Sets
     void setQualidade(int);
     //toString
-    string toString();
+    void toString();
     
 private:
     int qualidade;

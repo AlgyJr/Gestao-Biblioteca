@@ -7,7 +7,6 @@
 //
 
 #include "Revista.hpp"
-#include <sstream>
 
 Revista::Revista(string titulo, string assunto, int cota, string editora, string issn, string url, Exemplar* exemplares[]):Documento(titulo, assunto, cota, editora){
     this->issn       = issn;
@@ -44,8 +43,7 @@ void Revista::setExemplares(Exemplar* exemplares[]) {
         this->exemplares[i] = exemplares[i];
 }
 
-string Revista::toString() {
-    stringstream str;
-    str<<Documento::toString()<<"\nISSN: "<<issn<<"\nURL: "<<url;
-    return str.str();
+void Revista::toString() {
+    Documento::toString();
+    cout<<"\nISSN: "+issn+"\nURL: "+url<<endl;
 }

@@ -28,7 +28,7 @@ public:
     void setCurso(string);
     void setExemplares(Exemplar*[]);
     //toString
-    string toString();
+    void toString();
     
 private:
     string curso;

@@ -7,7 +7,6 @@
 //
 
 #include "Documento.hpp"
-#include <sstream>
 
 Documento::Documento(string titulo, string assunto, int cota, string editora) {
     this->titulo    = titulo;
@@ -47,9 +46,6 @@ void Documento::setEditora(string editora)  {
         this->editora = editora;
 }
 
-string Documento::toString() {
-    //Usado para operar com strings complexas/compridas
-    stringstream str;
-    str<<"\nTitulo: "<<titulo<<"\nAssunto: "<<assunto<<"\nCota: "<<cota<<"\nEditora: "<<editora;
-    return str.str();
+void Documento::toString() {
+    cout<<"\nTitulo: "<<titulo+""<<"\nAssunto: "<<assunto<<"\nCota: "<<cota<<"\nEditora: "<<editora;;
 }

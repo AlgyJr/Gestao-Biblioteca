@@ -34,7 +34,7 @@ public:
     void setISBN(string);
     void setExemplares(ExemplarLivro*[]);
     //toString
-    string toString();
+    void toString();
 private:
     Autor *autor;
     string isbn;

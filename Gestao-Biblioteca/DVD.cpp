@@ -7,7 +7,6 @@
 //
 
 #include "DVD.hpp"
-#include <sstream>
 
 DVD::DVD(string titulo, string assunto, int cota, string editora, float duracao,string idioma, Exemplar *exemplares[], int qualidade):Disco(titulo, assunto, cota, editora, duracao, idioma, exemplares){
     this->qualidade = qualidade;
@@ -23,13 +22,12 @@ DVD::~DVD() { /*qtdDVD--;*/}
 int DVD::getQualidade() { return qualidade;}
 
 void DVD::setQualidade(int qualidade) {
-    if (qualidade == 144 && qualidade == 240 && qualidade == 360 && (qualidade == 480) && qualidade == 720 && qualidade == 1080) {
+    if (qualidade == 144 && qualidade == 240 && qualidade == 360 && qualidade == 480 && qualidade == 720 && qualidade == 1080) {
         this->qualidade = qualidade;
     }
 }
 
-string DVD::toString() {
-    stringstream str;
-    str<<Disco::toString()<<"\nQualidade: "<<qualidade<<"p"<<endl;
-    return str.str();
+void DVD::toString() {
+    Disco::toString();
+    cout<<"\nQualidade: "<<qualidade<<"p"<<endl;
 }

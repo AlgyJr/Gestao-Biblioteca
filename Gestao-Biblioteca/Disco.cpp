@@ -7,7 +7,6 @@
 //
 
 #include "Disco.hpp"
-#include <sstream>
 
 Disco::Disco(string titulo, string assunto, int cota, string editora, float duracao,string idioma, Exemplar *exemplares[]):Documento(titulo, assunto, cota, editora){
     this->duracao    = duracao;
@@ -42,9 +41,7 @@ void Disco::setExemplares(Exemplar* exemplares[]) {
     }
 }
 
-string Disco::toString() {
-    stringstream str;
-    str<<Documento::toString()<<"\nDuração: "<<duracao<<"\nIdioma: "<<idioma;
-    //.str() devolve a string
-    return  str.str();
+void Disco::toString() {
+    Documento::toString();
+    cout<<"\nDuração: "<<duracao<<"\nIdioma: "<<idioma;
 }

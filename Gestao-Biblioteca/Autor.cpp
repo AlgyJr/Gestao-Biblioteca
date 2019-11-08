@@ -7,7 +7,6 @@
 //
 
 #include "Autor.hpp"
-#include <sstream>
 
 Autor::Autor(int cod_Autor, string nome){
     this->cod_Autor = cod_Autor;
@@ -35,8 +34,6 @@ void Autor::setNome(string nome) {
         this->nome = nome;
 }
 
-string Autor::toString() {
-    stringstream str;
-    str<<"\nCódigo Autor: "<<cod_Autor<<"\nNome: "<<nome;
-    return str.str();
+void Autor::toString() {
+    cout<<"\nCódigo Autor: "<<cod_Autor<<"\nNome: "<<nome;
 }

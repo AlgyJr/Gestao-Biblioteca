@@ -22,9 +22,7 @@ DVD::~DVD() { /*qtdDVD--;*/}
 int DVD::getQualidade() { return qualidade;}
 
 void DVD::setQualidade(int qualidade) {
-    if (qualidade == 144 && qualidade == 240 && qualidade == 360 && qualidade == 480 && qualidade == 720 && qualidade == 1080) {
-        this->qualidade = qualidade;
-    }
+    this->qualidade = qualidade;
 }
 
 void DVD::toString() {

@@ -96,8 +96,9 @@ void Tarefas::lerDoFicheiro(){
                 } else { //cd
 //                    c = dynamic_cast<CD*>(dis);
                     c = criarObjectCD(titulo, assunto, cota, editora, duracao, idioma, exemplares);
-                        index = 4;
-                    }
+                    cout<<"\nCriado objecto CD"<<endl;
+                    index = 4;
+                }
             } else { //Livro
                 cod_Autor=atoi(strtok(NULL, ";"));
                 nomeA=strtok(NULL,";");
@@ -121,23 +122,23 @@ void Tarefas::lerDoFicheiro(){
             if (aux == NULL) {
                 aux = new Documento;
                 
-                if (criterio=="R") {
+                if (index == 1) {
                     cout<<"Revista: "<<titulo;
                     aux = r;
-                } else if (criterio == "M") {
+                } else if (index == 2) {
                     cout<<"Monografia";
                     aux = mon;
-                } else if (criterio == "D") {
+                } else if (index == 3) {
                     cout<<"DVD";
                     aux = d;
-                } else if (criterio == "C") {
-                    cout<<"CD";
+                } else if (index == 4) {
+                    cout<<"\nCD"<<titulo;
                     aux = c;
                 } else {
                     cout<<"Livro: "<<titulo;
                     aux = l;
                 }
-                
+                cout<<"\nIndex: "<<index;
                 aux->next = table[index];
                 table[index] = aux;
             }
@@ -230,34 +231,26 @@ void Tarefas::printDocTable() {
     for (int i = 0; i < maxDocs; i++) {
         aux = table[i];
         while (aux != NULL) {
-            cout<<"Start While\n";
-            string st = typeid(*aux).name();
-            if (i == 0) { //Se é do tipo Livro
-                cout<<"Livro ";
+            if (i == 0) { //Posição dos Livros
                 l = static_cast<Livro*>(aux);
                 l->toString();
                 cout<<endl;
-            } else if (i == 2) {//Se é Monografia
-                cout<<"Monografia ";
+            } else if (i == 2) {//Posição das Monografias
                 m = static_cast<Monografia*>(aux);
                 m->toString();
                 cout<<endl;
-            } else if (i == 3 || i == 4) {//Se é Disco
-                cout<<"Disco ";
+            } else if (i == 3 || i == 4) {//Posições dos Discos
                 dis = static_cast<Disco*>(aux);
-                if (i == 3){//Se é DVD
-                    cout<<" DVD";
+                if (i == 3){//Posição dos DVDs
                     d = static_cast<DVD*>(dis);
                     d->toString();
                     cout<<endl;
-                }else {
-                    cout<<"CD";
+                }else { //Posição dos CDs
                     c = static_cast<CD*>(dis);
                     c->toString();
                     cout<<endl;
                 }
-            } else {//Se for Revista
-                cout<<"Revista";
+            } else {//Posição das Revistas
                 r = static_cast<Revista*>(aux);
                 r->toString();
                 cout<<endl;
@@ -265,7 +258,6 @@ void Tarefas::printDocTable() {
             
             aux = aux->next;
         }
-        cout<<i;
     }
 }
 
@@ -368,7 +360,7 @@ void Tarefas::inserirDoc(char criterio) {
                 autor = criarObjectAutor(cod_Autor, nomeA);
                 criarObjectLivro(titulo, assunto, cota, editora, autor, isbn, exemplaresLivro);
                 cout<<cod_Autor<<nomeA<<isbn;
-        }
+            }
 
 
         aux->next = table[index];

@@ -55,27 +55,22 @@ public:
     int getMinIdx(int aIdx,int bIdx, int cIdx);
     
 public:
-//    int fila[max];
-    void clear();
     bool isFull();//retorna true se a fila por prioridade nao pode receber nenhuma outra entrada
     bool isEmpty()const;//retorna true se a fila por prioridade estiver vazia
     int size()const;//retorna o numero de elementos na fila por prioridade
-    int getItem(unsigned int idx) const;
     int parent(unsigned int idx)const;
     int child(unsigned int idx)const;
-    int find(unsigned int idx,int val)const;
-    void insert(int val);//metodo para inserira na fila por prioridade
-    void remove(int val);//metodo para Remover a entrada com a menor prioridade
-    void makeHeap(int array[],int size);
-    void makeHeap(std::vector<int>&input);
-    int extractMin();//removes and returns min value
-    std::vector<int> heapSort();//o(n log n)
-    std::string toString() const;
+    void insert(Leitor *obj);//metodo para inserira na fila por prioridade
+    Leitor* extractMin();//removes and returns min value
+    void printHeap() const;
+    Leitor *criarLeitor(string cod_leitor, string nome, char categoria, string data_inscr, string validade);
+    void swapObj(int, int);
     
     //Falta adicionar métodos para imprimir Livros só, Revista, Discos, 
 private:
     //Estrutura para tabela de Dispersão Documentos
     Documento *table[maxDocs];
+    Leitor *heapReserva[199];
     int size_;
 };
 

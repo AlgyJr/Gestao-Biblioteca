@@ -25,10 +25,18 @@ using namespace std;
 
 Tarefas::Tarefas() {
     //Inicializar aqui logo que ler do ficheiro
+    size_ = 0;
     lerDoFicheiro();
     printDocTable();
     cout<<"\nAcaba tudo";
-    removerDoc(1); //Escolhido remover um livro
+//    removerDoc(1); //Escolhido remover um livro
+    insert(criarLeitor("20150471", "Claida", 'P', "02/10/2019", "20/01/2021"));
+    insert(criarLeitor("2016049", "Fernando", 'F', "09/11/2016", "02/01/2021"));
+    insert(criarLeitor("2017220", "Tonito", 'E', "10/09/2018", "11/10/2021"));
+    insert(criarLeitor("20190471", "Kelvio", 'F', "20/10/2017", "05/04/2022"));
+    insert(criarLeitor("2019034", "Alfredo", 'P', "18/02/2019", "28/12/2020"));
+    
+    printHeap();
 }
 
 Tarefas::~Tarefas() {}
@@ -211,6 +219,7 @@ CD* Tarefas::criarObjectCD(string titulo, string assunto, int cota, string edito
     CD *cd=new CD();
     cd->setTitulo(titulo);
     cd->setAssunto(assunto);
+    cd->setCota(cota);
     cd->setEditora(editora);
     cd->setIdioma(idioma);
     cd->setDuracao(duracao);
@@ -287,18 +296,6 @@ short Tarefas::posDoc(char criterio) {
     } else {
         return 4;
     }
-    
-//    if (Livro *l = dynamic_cast<Livro*>(ob))//Se é Livro
-//        return 0;
-//    else if (Monografia *l = dynamic_cast<Monografia*>(ob))//Se é Monografia
-//        return 1;
-//    else if (Disco *dis = dynamic_cast<Disco*>(ob))//Se é Disco
-//        if (DVD *d = dynamic_cast<DVD*>(ob))//Se é DVD
-//            return 3;
-//        else
-//            return 4;
-//    else//Se for Revista
-//        return 2;
 }
 
 bool Tarefas::equalDisc(Disco *aux, string titulo) {
@@ -410,154 +407,103 @@ void Tarefas::inserirDoc(char criterio) {
 
 //MARK: Operação 2: Reservar Livro
 
-//add a dud first elem
-//heap::heap() : queue_(1,0),size_(0)
-
 bool Tarefas::isEmpty() const{ return size_ == 0; }
 
 int Tarefas::size() const{ return size_; }
 
-//void Tarefas::clear(){
-//    queue_.clear();
-//    queue_.push_back(0); //first item is a dud
-//}
+int Tarefas::parent(unsigned int idx)const{
+    if(size_<=1) //empty or root has no parent
+        return -1;
+    return ((int)(idx/2)-1);//floor(idx/2)
+}
 
-//int Tarefas::getItem(unsigned int idx)const{ return queue_[idx]; }
-//
-//int Tarefas::parent(unsigned int idx)const{
-//    if(size_<=1) //empty or root has no parent
-//        return -1;
-//    return ((int)idx/2);//floor(idx/2)
-//}
-//
-//int Tarefas::child(unsigned int idx)const{
-//    if(size_ <= 1|| 2 * idx>size_)
-//        return -1; //empty or root has no child
-//
-//    return (2*idx);
-//}
-//
-//int Tarefas::find(unsigned int idx,int val)const{
-//    if(idx > size_)
-//        return -1;//base case :: idx out of bounds
-//    if(val <queue_[idx])
-//        return -1;//base case : val not in min-heap
-//    if(queue_[idx] == val)
-//        return idx;//found the val, return its index
-//
-//    int childIdx = child(idx), i =-1;
-//
-//    if(childIdx != -1){
-//        i = max(find(childIdx,val), find(childIdx + 1,val));
-//    }
-//
-//    return i;
-//}
-//
-//void Tarefas::bubbleUp(int idx){
-//    int parentIdx = parent(idx);
-//    if(parentIdx == -1)
-//        return;//base case root of heap
-//    if(queue_[parentIdx]>queue_[idx]){
-//        swap(queue_[parentIdx],queue_[idx]);
-//        bubbleUp(parentIdx);
-//    }
-//}
-//void Tarefas::insert(int val){
-//    queue_.push_back(val);
-//    size_++;
-//    bubbleUp(size_);
-//}
+int Tarefas::child(unsigned int idx)const{
+    if(size_ <= 1|| 2 * idx>size_)
+        return -1; //empty or root has no child
+
+    return (2*idx);
+}
+void Tarefas::bubbleUp(int idx){
+    int parentIdx = parent(idx);
+    if(parentIdx == -1)
+        return;//base case root of heap
+        //Se o Valor da prioridade do pai e maior que do burraco
+    if(heapReserva[parentIdx]->getPrioridade() > heapReserva[idx]->getPrioridade()){
+        cout<<heapReserva[parentIdx]->getNome()<<"Troca com"<<heapReserva[idx]->getNome()<<endl;
+        swapObj(parentIdx,idx);//Metodo para trocar os valores
+        bubbleUp(parentIdx);
+    }
+}
+
+void Tarefas::insert(Leitor *obj){//Metodo para inserir um novo obj
+    heapReserva[size_] = obj;
+    bubbleUp(size_);
+    size_++;
+}
 //
 ////Precondition : index aIdx and bIdx exist in the array
-//int Tarefas::getMinIdx(int aIdx,int bIdx,int cIdx){
-//    bool isLeftSmaller = (queue_[aIdx]<queue_[bIdx]);
-//
-//    if(cIdx >(int) size_){
-//        return isLeftSmaller ? aIdx : bIdx;
-//    }else if(isLeftSmaller){
-//        return (queue_[aIdx]<queue_[cIdx]) ? aIdx : cIdx;
-//    }else{
-//        return (queue_[bIdx]<queue_[cIdx]) ? bIdx : cIdx;
-//    }
-//}
-//
-//void Tarefas::bubbleDown(int idx){
-//    int childIdx = child(idx);
-//    if(childIdx == -1)
-//        return ; //bas case no childres left
-//    int minIdx = getMinIdx(idx , childIdx , childIdx + 1);
-//
-//    if(minIdx != idx){
-//        swap(queue_[minIdx], queue_[idx]);
-//        bubbleDown(minIdx);
-//    }
-//}
-//
-//void Tarefas::remove(int val){
-//    int idx = find(1,val);
-//    if(idx == -1)
-//        return;
-//
-//    queue_[idx] = queue_[size_--]; //swap current with last item
-//    queue_.resize(size_ + 1);//idx 0 is a dud item
-//    bubbleDown(idx);
-//    bubbleUp(idx);
-//}
-//
-//int Tarefas::extractMin(){
-//    //Special case of remove
-//
-//    int min = queue_[1];
-//    remove(min);
-//    return min;
-//}
-//
-//vector<int> Tarefas::heapSort(){
-//    vector<int>sortedItems;
-//    sortedItems.reserve(size_);
-//    while(!isEmpty()){
-//        sortedItems.push_back(extractMin());
-//    }
-//
-//    return sortedItems;
-//}
-//
-////create the heap given an unsorted array
-//void Tarefas::makeHeap(int array[],int n){
-//    size_ = n;
-//    int i=0;
-//    for(;i<n;i++){
-//        queue_.push_back(array[i]);
-//    }
-//    for(int i = n;i>0;i--){
-//        bubbleDown(i);
-//    }
-//}
-//
-////create heap given an unsorted vector
-//void Tarefas::makeHeap(std::vector<int>&input){
-//    size_ = input.size();
-//    vecCiter citer = input.begin();
-//
-//    for(;citer != input.end();citer++){
-//        queue_.push_back(*citer);
-//    }
-//    for(int i = size_;i>0;i--){
-//        bubbleDown(i);
-//    }
-//}
-//
-//string Tarefas::toString()const{
-//    if(isEmpty())
-//        return "";
-//
-//    ostringstream sstream;
-//    copy(queue_.begin()+1,queue_.end()-1,ostream_iterator<int>(sstream," "));
-//    sstream << *(queue_.end()-1);
-//
-//    return sstream.str();
-//}
+int Tarefas::getMinIdx(int aIdx,int bIdx,int cIdx){
+    bool isLeftSmaller = (heapReserva[aIdx]->getPrioridade()<heapReserva[bIdx]->getPrioridade());
+    
+    if(cIdx >(int) size_){
+        return isLeftSmaller ? aIdx : bIdx;//operacao ternaria,?-if :-else
+    }else if(isLeftSmaller){
+        return (heapReserva[aIdx]->getPrioridade()<heapReserva[cIdx]->getPrioridade()) ? aIdx : cIdx;
+    }else{
+        return (heapReserva[bIdx]->getPrioridade()<heapReserva[cIdx]->getPrioridade()) ? bIdx : cIdx;
+    }
+}
+
+void Tarefas::bubbleDown(int idx){
+    int childIdx = child(idx);
+    if(childIdx == -1)
+        return ; //Se nao tiver filho esquerdo
+    int minIdx = getMinIdx(idx , childIdx , childIdx + 1);
+    
+    if(minIdx != idx){
+        swapObj(idx, minIdx);
+        bubbleDown(minIdx);
+    }
+}
+
+
+Leitor *Tarefas::extractMin(){
+    //Special case of remove
+    Leitor *min = heapReserva[0];
+    heapReserva[0] = heapReserva[size_];
+    heapReserva[size_--] = NULL;//Decrementa -mos a quantidade de Obj
+    return min;
+}
+
+void Tarefas::printHeap()const{
+    if(isEmpty())
+        cout<<"Sem Reservas"<<endl;
+    else{
+        for(int i=0;i<size_;i++){
+            heapReserva[i]->toString();
+        }
+    }
+    
+}
+
+Leitor *Tarefas::criarLeitor(string cod_leitor, string nome, char categoria, string data_inscr, string validade){//Criar leitor
+    Leitor *novo = new Leitor();
+    novo->setCodigo(cod_leitor);
+    novo->setNome(nome);
+    novo->setCategoria(categoria);
+    novo->setPrioridade(categoria);
+    novo->setData_inscr(data_inscr);
+    novo->setValidade(validade);
+    
+    return novo;
+}
+
+void Tarefas::swapObj(int parentIdx, int idx) {
+    Leitor *aux;
+    aux = heapReserva[parentIdx];
+    heapReserva[parentIdx] = heapReserva[idx];
+    heapReserva[idx] = aux;
+}
 
 //MARK: Operação 3: Remover Documento
 

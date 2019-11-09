@@ -43,5 +43,5 @@ void Disco::setExemplares(Exemplar* exemplares[]) {
 
 void Disco::toString() {
     Documento::toString();
-    cout<<"\nDuração: "<<duracao<<"\nIdioma: "<<idioma;
+    cout<<"\nDuração: "<<duracao<<" min"<<"\nIdioma: "<<idioma;
 }

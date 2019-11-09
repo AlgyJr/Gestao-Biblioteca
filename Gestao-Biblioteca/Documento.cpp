@@ -38,7 +38,7 @@ void Documento::setAssunto(string assunto)  {
 }
 
 void Documento::setCota(int cota)           {
-    if (cota != 0)
+    if (cota != 0 && cota < 11)
         this->cota = cota;
 }
 void Documento::setEditora(string editora)  {

@@ -29,7 +29,8 @@ Tarefas::Tarefas() {
     lerDoFicheiro();
     printDocTable();
     cout<<"\nAcaba tudo";
-//    removerDoc(1); //Escolhido remover um livro
+    removerDoc(1); //Escolhido remover um livro
+    printDocTable();
     insert(criarLeitor("20150471", "Claida", 'P', "02/10/2019", "20/01/2021"));
     insert(criarLeitor("2016049", "Fernando", 'F', "09/11/2016", "02/01/2021"));
     insert(criarLeitor("2017220", "Tonito", 'E', "10/09/2018", "11/10/2021"));
@@ -549,7 +550,7 @@ void Tarefas::removerDoc(int index) { //Para referenciar que documento o utiliza
         aux1 = aux1->next;
     } else {
         cout<<"Entrou no else";
-        aux1 = aux1->next;
+//        aux1 = aux1->next;
         while ((aux1 != NULL) && !found) {
             aux1 = aux1->next;
             cout<<aux1->getTitulo()<<endl;
@@ -564,6 +565,8 @@ void Tarefas::removerDoc(int index) { //Para referenciar que documento o utiliza
             }
         }
     }
+    
+    table[index] = aux1;
     
     if (found) {
         cout<<"Removido com sucesso";

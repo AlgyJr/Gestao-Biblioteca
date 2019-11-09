@@ -65,6 +65,7 @@ public:
     void printHeap() const;
     Leitor *criarLeitor(string cod_leitor, string nome, char categoria, string data_inscr, string validade);
     void swapObj(int, int);
+    void printReserva(Leitor *obj);
     
     //Falta adicionar métodos para imprimir Livros só, Revista, Discos, 
 private:

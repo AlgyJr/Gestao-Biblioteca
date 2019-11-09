@@ -36,6 +36,13 @@ Tarefas::Tarefas() {
     insert(criarLeitor("20190471", "Kelvio", 'F', "20/10/2017", "05/04/2022"));
     insert(criarLeitor("2019034", "Alfredo", 'P', "18/02/2019", "28/12/2020"));
     
+    cout<<"----------Reservas----------";
+    printHeap();
+    
+    cout<<"----------Removido----------";
+    extractMin()->toString();
+    
+    cout<<"\nNova heap";
     printHeap();
 }
 
@@ -418,10 +425,10 @@ int Tarefas::parent(unsigned int idx)const{
 }
 
 int Tarefas::child(unsigned int idx)const{
-    if(size_ <= 1|| 2 * idx>size_)
+    if(size_ <= 1|| (2 * idx) > size_)
         return -1; //empty or root has no child
 
-    return (2*idx);
+    return (2*idx)+1;
 }
 void Tarefas::bubbleUp(int idx){
     int parentIdx = parent(idx);
@@ -443,24 +450,26 @@ void Tarefas::insert(Leitor *obj){//Metodo para inserir um novo obj
 //
 ////Precondition : index aIdx and bIdx exist in the array
 int Tarefas::getMinIdx(int aIdx,int bIdx,int cIdx){
-    bool isLeftSmaller = (heapReserva[aIdx]->getPrioridade()<heapReserva[bIdx]->getPrioridade());
+    bool isLeftSmaller = (heapReserva[aIdx]->getPrioridade() <= heapReserva[bIdx]->getPrioridade());
     
-    if(cIdx >(int) size_){
+    if(cIdx >=(int) size_){
         return isLeftSmaller ? aIdx : bIdx;//operacao ternaria,?-if :-else
     }else if(isLeftSmaller){
-        return (heapReserva[aIdx]->getPrioridade()<heapReserva[cIdx]->getPrioridade()) ? aIdx : cIdx;
+        return (heapReserva[aIdx]->getPrioridade() <= heapReserva[cIdx]->getPrioridade()) ? aIdx : cIdx;
     }else{
-        return (heapReserva[bIdx]->getPrioridade()<heapReserva[cIdx]->getPrioridade()) ? bIdx : cIdx;
+        return (heapReserva[bIdx]->getPrioridade() <= heapReserva[cIdx]->getPrioridade()) ? bIdx : cIdx;
     }
 }
 
 void Tarefas::bubbleDown(int idx){
     int childIdx = child(idx);
+    cout<<"Index do filho: "<<childIdx<<endl;
     if(childIdx == -1)
         return ; //Se nao tiver filho esquerdo
     int minIdx = getMinIdx(idx , childIdx , childIdx + 1);
     
     if(minIdx != idx){
+        cout<<"Posição do index minimo: "<<idx<<endl;
         swapObj(idx, minIdx);
         bubbleDown(minIdx);
     }
@@ -468,10 +477,15 @@ void Tarefas::bubbleDown(int idx){
 
 
 Leitor *Tarefas::extractMin(){
-    //Special case of remove
     Leitor *min = heapReserva[0];
+    size_--;
     heapReserva[0] = heapReserva[size_];
-    heapReserva[size_--] = NULL;//Decrementa -mos a quantidade de Obj
+    heapReserva[size_] = NULL;//Decrementa -mos a quantidade de Obj
+    cout<<endl<<size_<<endl;
+    if (size_ > 1) {
+        bubbleDown(0);
+    }
+    
     return min;
 }
 
@@ -484,6 +498,10 @@ void Tarefas::printHeap()const{
         }
     }
     
+}
+
+void Tarefas::printReserva(Leitor *obj) {
+    obj->toString();
 }
 
 Leitor *Tarefas::criarLeitor(string cod_leitor, string nome, char categoria, string data_inscr, string validade){//Criar leitor

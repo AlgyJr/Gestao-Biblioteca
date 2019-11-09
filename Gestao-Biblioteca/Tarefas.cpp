@@ -28,6 +28,7 @@ Tarefas::Tarefas() {
     lerDoFicheiro();
     printDocTable();
     cout<<"\nAcaba tudo";
+    removerDoc(1); //Escolhido remover um livro
 }
 
 Tarefas::~Tarefas() {}
@@ -50,6 +51,7 @@ void Tarefas::lerDoFicheiro(){
     CD *c;
     DVD *d;
     Monografia *mon;
+    bool equal = false;
     
     /*Regina - Adicionar no ficheiro .txt: código autor(apenas para Livro), nome autor(apenas para Livro), qtd de exemplares(no fim da linha)*/
     
@@ -113,9 +115,17 @@ void Tarefas::lerDoFicheiro(){
             aux = NULL;
             aux = table[index];
             
-            while ((aux != NULL) && (!equalDoc())) {
+            string crit;
+            if (index == 0) {
+                crit = isbn;
+            } else if (index == 1) {
+                crit = issn;
+            } else {
+                crit = titulo;
+            }
+            
+            while ((aux != NULL) && !equalDoc(index, aux, crit)) {
                 aux = aux->next;
-                cout<<"\n1";
             }
             
             
@@ -141,6 +151,8 @@ void Tarefas::lerDoFicheiro(){
                 cout<<"\nIndex: "<<index;
                 aux->next = table[index];
                 table[index] = aux;
+            } else {
+                cout<<"Já existe";
             }
         }
         file.close();
@@ -289,11 +301,33 @@ short Tarefas::posDoc(char criterio) {
 //        return 2;
 }
 
-bool Tarefas::equalDoc() {
-    //Falta saber que criterios de chave unica iremos usar para comparar se é igual(se ja existe)
-    return false;
+bool Tarefas::equalDisc(Disco *aux, string titulo) {
+    return aux->getTitulo() == titulo;
 }
 
+bool Tarefas::equalRev(Revista *aux, string issn) {
+    return aux->getISSN() == issn;
+}
+
+bool Tarefas::equalBook(Livro *aux, string isbn) {
+    return aux->getISBN() == isbn;
+}
+
+bool Tarefas::equalMonografia(Monografia *aux, string titulo) {
+    return aux->getTitulo() == titulo;
+}
+
+bool Tarefas::equalDoc(int index, Documento *aux, string crit) { //com posição do tipo do objecto
+    if (index == 1) { //Se for revista
+        return equalRev(static_cast<Revista*>(aux), crit);
+    } else if (index == 2) { //Se for Monografia
+        return equalMonografia(static_cast<Monografia*>(aux), crit);
+    } else if (index == 3 || index == 4) { //Se for posição dos Discos
+        return equalDisc(static_cast<Disco*>(aux), crit);
+    } else {//Se for posição dos Livros
+        return equalBook(static_cast<Livro*>(aux), crit);
+    }
+}
 
 void Tarefas::inserirDoc(char criterio) {
     Documento *aux = NULL;
@@ -305,10 +339,13 @@ void Tarefas::inserirDoc(char criterio) {
     float duracao;
     int qualidade;
     short cod_Autor, cota;
+    bool equal = false;
     
     aux = table[index];
-    while ((aux != NULL) && (!equalDoc()))
+    while ((aux != NULL) && !equal) {
+        
         aux = aux->next;
+    }
     
     if (aux == NULL) {
         aux = new Documento;
@@ -524,8 +561,51 @@ int Tarefas::size() const{ return size_; }
 
 //MARK: Operação 3: Remover Documento
 
-void Tarefas::removerDoc() {
+void Tarefas::removerDoc(int index) { //Para referenciar que documento o utilizador quer inserir
+    Documento *aux1, *aux2;
+    bool found = false;
     
+    string crit;
+    if (index == 0) { //Pedir para introduzir
+        cout<<"ISBN: ";
+        //chamada do método validar
+    } else if (index == 1) {
+        cout<<"ISSN: ";
+    } else {
+        cout<<"Título: ";
+    }
+    cin>>crit;
+    
+    aux1 = table[index];
+    aux2 = table[index];
+    
+    if (equalDoc(index, aux1, crit)) {
+        cout<<"Entrou no if";
+        found = true;
+        aux1 = aux1->next;
+    } else {
+        cout<<"Entrou no else";
+        aux1 = aux1->next;
+        while ((aux1 != NULL) && !found) {
+            aux1 = aux1->next;
+            cout<<aux1->getTitulo()<<endl;
+            if (equalDoc(index, aux1, crit)) {
+                cout<<"Apanhou";
+                aux2->next = aux1->next;
+                found = true;
+            } else {
+                cout<<"Não apanhou!"<<endl,
+                aux2 = aux1;
+                aux1 = aux1->next;
+            }
+        }
+    }
+    
+    if (found) {
+        cout<<"Removido com sucesso";
+    } else {
+        cout<<"Não encontrado";
+    }
 }
 
 //MARK: Operação 4: Pesquisar Documento

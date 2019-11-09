@@ -21,7 +21,6 @@ public:
     DVD();
     ~DVD();
 //    static int qtdDVD;
-    DVD *next;
     //Gets
     int getQualidade();
     //Sets

@@ -31,8 +31,12 @@ public:
     DVD* criarObjectDVD(string titulo, string assunto, int cota, string editora, float duracao,string idioma, Exemplar *exemplares[], int qualidade);
     CD* criarObjectCD(string titulo, string assunto, int cota, string editora, float duracao,string idioma, Exemplar *exemplares[]);
     void inserirDoc(char);
-    void removerDoc();
-    bool equalDoc();
+    void removerDoc(int);
+    bool equalRev(Revista*,string);
+    bool equalDisc(Disco*,string);
+    bool equalMonografia(Monografia*,string);
+    bool equalBook(Livro*,string);
+    bool equalDoc(int,Documento*,string);
     short posDoc(char);
     void printDocTable();
 //    void printObject();

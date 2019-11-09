@@ -22,7 +22,6 @@ public:
     Livro(string titulo, string assunto, int cota, string editora, Autor *autor, string isbn, ExemplarLivro *exemplares[]);
     Livro();
     ~Livro();
-    Livro *next;
 //    static int qtdLivro;
     //métodos
     //gets

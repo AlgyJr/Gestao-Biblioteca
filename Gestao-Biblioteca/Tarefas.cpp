@@ -29,7 +29,7 @@ Tarefas::Tarefas() {
     lerDoFicheiro();
     printDocTable();
     cout<<"\nAcaba tudo";
-    removerDoc(1); //Escolhido remover um Revista
+//    removerDoc(1); //Escolhido remover um Revista
     printDocTable();
     insert(criarLeitor("20150471", "Claida", 'P', "02/10/2019", "20/01/2021"));
     insert(criarLeitor("2016049", "Fernando", 'F', "09/11/2016", "02/01/2021"));
@@ -45,6 +45,21 @@ Tarefas::Tarefas() {
     
     cout<<"\nNova heap";
     printHeap();
+    
+    cout<<endl<<endl;
+    
+    Livro *listB[999];
+    int sizeListB = initArrayBooks(listB, sizeListB); //Atribuição da lista ligada dos livros da posção dos livros
+    
+    cout<<"-------Ordenado Por Assunto------";
+    
+    orderByTitle(listB, sizeListB);
+    cout<<sizeListB<<endl;
+    printOrderArray(listB, sizeListB);
+    
+    cout<<"-------Ordenado Por Assunto------";
+    orderByAssunto(listB, sizeListB);
+    printOrderArray(listB, sizeListB);
 }
 
 Tarefas::~Tarefas() {}
@@ -63,11 +78,9 @@ void Tarefas::lerDoFicheiro(){
     Documento *aux;
     Livro *l;
     Revista *r;
-    Disco *dis;
     CD *c;
     DVD *d;
     Monografia *mon;
-    bool equal = false;
     
     /*Regina - Adicionar no ficheiro .txt: código autor(apenas para Livro), nome autor(apenas para Livro), qtd de exemplares(no fim da linha)*/
     
@@ -416,17 +429,17 @@ void Tarefas::inserirDoc(char criterio) {
 
 //MARK: Operação 2: Reservar Livro
 
-bool Tarefas::isEmpty() const{ return size_ == 0; }
+bool Tarefas::isEmpty() { return size_ == 0; }
 
-int Tarefas::size() const{ return size_; }
+int Tarefas::size() { return size_; }
 
-int Tarefas::parent(unsigned int idx)const{
+int Tarefas::parent(int idx) {
     if(size_<=1) //empty or root has no parent
         return -1;
     return ((int)(idx/2)-1);//floor(idx/2)
 }
 
-int Tarefas::child(unsigned int idx)const{
+int Tarefas::child(int idx) {
     if(size_ <= 1|| (2 * idx) > size_)
         return -1; //empty or root has no child
 
@@ -491,7 +504,7 @@ Leitor *Tarefas::extractMin(){
     return min;
 }
 
-void Tarefas::printHeap()const{
+void Tarefas::printHeap() {
     if(isEmpty())
         cout<<"Sem Reservas"<<endl;
     else{
@@ -565,6 +578,8 @@ void Tarefas::removerDoc(int index) { //Para referenciar que documento o utiliza
     }
 }
 
+//MARK: Operação 4: Pesquisar Documento
+
 int Tarefas::search(int index) {
     Documento *aux1;
     int i = 0;
@@ -599,11 +614,70 @@ int Tarefas::search(int index) {
     return -1;
 }
 
-//MARK: Operação 4: Pesquisar Documento
-
 //MARK: Operação 5: Pesquisar Autor (Return livro do autor)
 
 //MARK: Operação 6: Listar Livros por Ordem
+
+int Tarefas::initArrayBooks(Livro *liv[], int sizList) {
+    Documento *aux = table[0];
+    int i = 0;
+    
+    while (aux != NULL) {
+        cout<<"Entra no while";
+        liv[i] = static_cast<Livro*>(aux);
+        aux = aux->next;
+        i++;
+    }
+    return i;
+}
+
+void Tarefas::orderByTitle(Livro *liv[], int sizeList) {
+    for (int i = sizeList-1; i > 0; i--)
+        for (int j = 0; j < i; j++)
+            if (compareCrit(liv[j]->getTitulo(), liv[j+1]->getTitulo()) > 0)
+                swapElements(liv, j, j+1);
+}
+
+void Tarefas::orderByAssunto(Livro *liv[], int sizeList) {
+    for (int i = sizeList-1; i > 0; i--)
+        for (int j = 0; j < i; j++)
+            if (compareCrit(liv[j]->getAssunto(), liv[j+1]->getAssunto()) > 0)
+                swapElements(liv, j, j+1);
+}
+
+int Tarefas::compareCrit(string critObj1, string critObj2) {
+    char* str1 = new char[critObj1.length()+1];
+    char* str2 = new char[critObj2.length()+1];
+    
+    strcpy(str1, critObj1.c_str());
+    strcpy(str2, critObj2.c_str());
+
+    cout<<strcmp(str1, str2)<<endl;
+    
+    short result = strcmp(str1, str2);
+    
+    if (result < 0) {
+        cout<<"Primeiro Título: "<<str1<<"Segundo Título: "<<str2<<endl;
+        return -1;
+    } else if (result > 0) {
+        cout<<"Primeiro Título: "<<str2<<"Segundo Título: "<<str1<<endl;
+        return 1;
+    } else
+        return 0;
+}
+
+void Tarefas::printOrderArray(Livro *liv[], int siz) {
+    for (int x = 0; x < siz-1; x++) {
+        liv[x]->toString();
+        cout<<endl;
+    }
+}
+
+void Tarefas::swapElements(Livro *array[], int i, int j) {
+    Livro *aux = array[i];
+    array[i] = array[j];
+    array[j] = aux;
+}
 
 //MARK: Operação 7: Devolver Livro
 

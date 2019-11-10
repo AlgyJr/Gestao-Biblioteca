@@ -29,7 +29,7 @@ Tarefas::Tarefas() {
     lerDoFicheiro();
     printDocTable();
     cout<<"\nAcaba tudo";
-    removerDoc(1); //Escolhido remover um livro
+    removerDoc(1); //Escolhido remover um Revista
     printDocTable();
     insert(criarLeitor("20150471", "Claida", 'P', "02/10/2019", "20/01/2021"));
     insert(criarLeitor("2016049", "Fernando", 'F', "09/11/2016", "02/01/2021"));
@@ -311,6 +311,7 @@ bool Tarefas::equalDisc(Disco *aux, string titulo) {
 }
 
 bool Tarefas::equalRev(Revista *aux, string issn) {
+    cout<<"\nO ISSN: "<<aux->getISSN()<<"== "<<issn<<endl;
     return aux->getISSN() == issn;
 }
 
@@ -547,26 +548,24 @@ void Tarefas::removerDoc(int index) { //Para referenciar que documento o utiliza
     if (equalDoc(index, aux1, crit)) {
         cout<<"Entrou no if";
         found = true;
-        aux1 = aux1->next;
+        table[index] = aux1->next;
     } else {
         cout<<"Entrou no else";
-//        aux1 = aux1->next;
+        aux1 = aux1->next;
         while ((aux1 != NULL) && !found) {
-            aux1 = aux1->next;
-            cout<<aux1->getTitulo()<<endl;
+            cout<<"Título: "<<aux1->getTitulo()<<endl;
             if (equalDoc(index, aux1, crit)) {
                 cout<<"Apanhou";
                 aux2->next = aux1->next;
+//                aux1 = NULL;
                 found = true;
             } else {
-                cout<<"Não apanhou!"<<endl,
+                cout<<"Não apanhou!"<<endl;
                 aux2 = aux1;
                 aux1 = aux1->next;
             }
         }
     }
-    
-    table[index] = aux1;
     
     if (found) {
         cout<<"Removido com sucesso";
@@ -584,10 +583,3 @@ void Tarefas::removerDoc(int index) { //Para referenciar que documento o utiliza
 //MARK: Operação 7: Devolver Livro
 
 //MARK: Operação 8: Menu
-
-//int main() {
-//    Tarefas tar;
-//    tar.lerDoFicheiro();
-//
-//    return 0;
-//}

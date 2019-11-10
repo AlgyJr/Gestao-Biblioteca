@@ -34,6 +34,7 @@ public:
     void removerDoc(int);
     bool equalRev(Revista*,string);
     bool equalDisc(Disco*,string);
+    int search(int);
     bool equalMonografia(Monografia*,string);
     bool equalBook(Livro*,string);
     bool equalDoc(int,Documento*,string);

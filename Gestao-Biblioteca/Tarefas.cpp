@@ -529,7 +529,45 @@ void Tarefas::swapObj(int parentIdx, int idx) {
 
 void Tarefas::removerDoc(int index) { //Para referenciar que documento o utilizador quer inserir
     Documento *aux1, *aux2;
-    bool found = false;
+    
+    if (table[index] != NULL) {
+        int i = search(index);
+        cout<<endl<<"Index da procura: "<<i<<endl;
+        if (i == -1) {
+            cout<<"Documento não encontrado";
+        } else {
+            
+            if (i == 0) {
+                table[index] = table[index]->next;
+            } else {
+                aux1 = table[index]->next;
+                aux2 = table[index];
+                cout<<"Entrou no else";
+                for (int c = 1; c < i; c++) {
+                    aux2 = aux1;
+                    aux1 = aux1->next;
+                }
+                aux2->next = aux1->next;
+            }
+        }
+    } else {
+        if (index == 0) {
+            cout<<"Sem Livro na biblioteca";
+        } else if (index == 1) {
+            cout<<"Sem Revistas na Biblioteca";
+        } else if (index == 2) {
+            cout<<"Sem Monografias na Biblioteca";
+        } else if (index == 3) {
+            cout<<"Sem Discos DVD na Biblioteca";
+        } else {
+            cout<<"Sem Discos DVD na Biblioteca";
+        }
+    }
+}
+
+int Tarefas::search(int index) {
+    Documento *aux1;
+    int i = 0;
     
     string crit;
     if (index == 0) { //Pedir para introduzir
@@ -543,35 +581,22 @@ void Tarefas::removerDoc(int index) { //Para referenciar que documento o utiliza
     cin>>crit;
     
     aux1 = table[index];
-    aux2 = table[index];
     
-    if (equalDoc(index, aux1, crit)) {
-        cout<<"Entrou no if";
-        found = true;
-        table[index] = aux1->next;
-    } else {
-        cout<<"Entrou no else";
-        aux1 = aux1->next;
-        while ((aux1 != NULL) && !found) {
-            cout<<"Título: "<<aux1->getTitulo()<<endl;
-            if (equalDoc(index, aux1, crit)) {
-                cout<<"Apanhou";
-                aux2->next = aux1->next;
-//                aux1 = NULL;
-                found = true;
-            } else {
-                cout<<"Não apanhou!"<<endl;
-                aux2 = aux1;
-                aux1 = aux1->next;
-            }
+    cout<<"Entrou no else";
+//    aux1 = aux1->next;
+    while (aux1 != NULL) {
+        cout<<"Título: "<<aux1->getTitulo()<<endl;
+        if (equalDoc(index, aux1, crit)) {
+            cout<<"Apanhou";
+            return i;
+        } else {
+            cout<<"Ainda!"<<endl;
+            aux1 = aux1->next;
+            i++;
         }
     }
     
-    if (found) {
-        cout<<"Removido com sucesso";
-    } else {
-        cout<<"Não encontrado";
-    }
+    return -1;
 }
 
 //MARK: Operação 4: Pesquisar Documento

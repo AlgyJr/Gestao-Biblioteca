@@ -28,18 +28,18 @@ public:
     //gets
     float getDuracao(); //em minutos
     string getIdioma();
-    Exemplar** getExemplares();
+//    Exemplar** getExemplares();
     //sets
     void setDuracao(float);
     void setIdioma(string);
-    void setExemplares(Exemplar*[]);
+//    void setExemplares(Exemplar*[]);
     //toString
     void toString();
     
 protected:
     float duracao;
     string idioma;
-    Exemplar* exemplares[max];
+    Exemplar* exemplares[10]; //defini directo, porque o Dev++ não estava reconhecer o max Definido na Classe
 };
 
 #endif /* Disco_hpp */

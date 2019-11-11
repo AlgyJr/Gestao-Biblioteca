@@ -17,9 +17,13 @@ ExemplarLivro::ExemplarLivro()  {ExemplarLivro(0,0,0,NULL,false);}
 
 ExemplarLivro::~ExemplarLivro() {}
 
-bool ExemplarLivro::getSituacao(){ return emprestado;}
+bool ExemplarLivro::getSituacao()      { return emprestado;}
 
-void ExemplarLivro::setSituacao(bool emprestado) { this->emprestado = emprestado;}
+Leitor* ExemplarLivro::getLastReader() { return lastReader;}
+
+void ExemplarLivro::setSituacao(bool emprestado)      { this->emprestado = emprestado; }
+
+void ExemplarLivro::setLastReader(Leitor *lastReader) { this->lastReader = lastReader; }
 
 void ExemplarLivro::toString() {
     Exemplar::toString();

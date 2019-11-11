@@ -26,7 +26,7 @@ Autor* Livro::getAutor()                    { return autor;     }
 
 string Livro::getISBN()                     { return isbn;      }
 
-ExemplarLivro** Livro::getExemplaresLivro() { return exemplares;}
+//ExemplarLivro** Livro::getExemplaresLivro() { return exemplares;}
 
 void Livro::setAutor(Autor* autor) {
     if (autor != NULL)
@@ -38,10 +38,10 @@ void Livro::setISBN(string isbn) {
         this->isbn = isbn;
 }
 
-void Livro::setExemplares(ExemplarLivro* exemplares[]) {
-    for (short i = 0; i < sizeof(exemplares); i++)
-        this->exemplares[i] = exemplares[i];
-}
+//void Livro::setExemplares(ExemplarLivro* exemplares[]) {
+//    for (short i = 0; i < sizeof(exemplares); i++)
+//        this->exemplares[i] = exemplares[i];
+//}
 
 void Livro::toString() {
     Documento::toString();

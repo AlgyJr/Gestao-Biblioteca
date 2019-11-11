@@ -26,6 +26,7 @@ using namespace std;
 Tarefas::Tarefas() {
     //Inicializar aqui logo que ler do ficheiro
     size_ = 0;
+    size_Exemp = 0;
     lerDoFicheiro("documento.txt");
     
     menu();
@@ -107,8 +108,11 @@ void Tarefas::lerDoFicheiro(string fich){
                 crit = titulo;
             }
             
+            cout<<"lendo"<<endl;
+            
             while ((aux != NULL) && !equalDoc(index, aux, crit)) {
                 aux = aux->next;
+                cout<<aux->getTitulo()<<endl;
             }
             
             
@@ -410,9 +414,10 @@ void Tarefas::insertReserva(){//Metodo para inserir um novo obj
     heapReserva[size_] = criarLeitor(cod_leitor, nome, categoria, data_inscr, validade);
     bubbleUp(size_);
     size_++;
+    //sets no exemplar
 }
-//
-////Precondition : index aIdx and bIdx exist in the array
+
+
 int Tarefas::getMinIdx(int aIdx,int bIdx,int cIdx){
     bool isLeftSmaller = (heapReserva[aIdx]->getPrioridade() <= heapReserva[bIdx]->getPrioridade());
     
@@ -639,7 +644,55 @@ void Tarefas::swapElements(Livro *array[], int i, int j) {
 }
 
 //MARK: Operação 7: Devolver Livro
+bool Tarefas::isVazio() { return size_Exemp == 0; }
 
+void Tarefas::receber() {
+    short codigo = val.validarShort("Introduza o código do exemplar(1-10): ", 1, 10, "Erro! Código inválido, tente novamente!");
+    short ratingConser = val.validarShort("Introduza o rating de conservação(1-5): ", 1, 5, "Erro! Rating inválido, tente novamente!");
+    short bloco = val.validarShort("Introduza o bloco(1-20) em que se localiza: ", 1, 20, "Erro! Bloco inválido, tente novamente!");
+    bool emprestado = false;
+    
+    string cod_leitor = val.validarString("Introduza o código leitor(4 digitos): ", 4, 4, "Erro! Código leitor inválido, tente novamente(4 digitos)!");
+    string nome = val.validarString("Introduza o nome do leitor: ", 1, 99, "Erro! Nome inválido, tente novamente!");
+    char categoria = val.validarCharOption("Introduza a categoria do leitor(P - Professor,E- Estudante, F- Funcionario, O- Outros): ", 'P', 'E', 'F', 'O', "Erro! Categoria inválida, tente novamente!");
+    string data_inscr = val.validarString("Introduza a data de inscrição: ", 8, 10, "Erro! Data de inscrição inválida!");
+    string validade = val.validarString("Introduza a validade: ", 8, 10, "Erro! Validade inválida, tente novamente!");
+    
+    Leitor *lastReader = criarLeitor(cod_leitor, nome, categoria, data_inscr, validade);
+    
+    ExemplarLivro *obj = criarObjectoExemplarL(codigo, ratingConser, bloco, lastReader, emprestado);
+    exemplaresTo[size_Exemp++] = obj;
+}
+
+ExemplarLivro* Tarefas::repor() {
+    if (isVazio()) {
+        return NULL;
+    }
+    string cod_leitor = val.validarString("Introduza o código leitor(4 digitos): ", 4, 4, "Erro! Código leitor inválido, tente novamente(4 digitos)!");
+    string nome = val.validarString("Introduza o nome do leitor: ", 1, 99, "Erro! Nome inválido, tente novamente!");
+    char categoria = val.validarCharOption("Introduza a categoria do leitor(P - Professor,E- Estudante, F- Funcionario, O- Outros): ", 'P', 'E', 'F', 'O', "Erro! Categoria inválida, tente novamente!");
+    string data_inscr = val.validarString("Introduza a data de inscrição: ", 8, 10, "Erro! Data de inscrição inválida!");
+    string validade = val.validarString("Introduza a validade: ", 8, 10, "Erro! Validade inválida, tente novamente!");
+    
+    short ratingConser = val.validarShort("Introduza o rating de conservação(1-5): ", 1, 5, "Erro! Rating inválido, tente novamente!");
+    
+    Leitor *lastReader = criarLeitor(cod_leitor, nome, categoria, data_inscr, validade);
+    
+    exemplaresTo[size_Exemp-1]->setSituacao(false); //passa para disponivel para emprestimo
+    exemplaresTo[size_Exemp-1]->setConserva(ratingConser);
+    exemplaresTo[size_Exemp-1]->setLastReader(lastReader);
+    return exemplaresTo[--size_Exemp];
+}
+
+ExemplarLivro* Tarefas::criarObjectoExemplarL(short codigo, short ratingConser, short bloco, Leitor *lastReader, bool emprestado) {
+    ExemplarLivro *obj = new ExemplarLivro();
+    obj->setCodigo(codigo);
+    obj->setConserva(ratingConser);
+    obj->setBloco(bloco);
+    obj->setLastReader(lastReader);
+    
+    return obj;
+}
 
 //MARK: Operação 8: Menu
 void Tarefas::menu() {
@@ -655,8 +708,9 @@ void Tarefas::menu() {
         cout<<"|6   Pesquisar por documento                |"<<endl;
         cout<<"|7   Visualizar Livros de Autor             |"<<endl;
         cout<<"|8   Visualizar Livros Ordenados            |"<<endl;
-        cout<<"|9   Devolver Livro                         |"<<endl;
-        cout<<"|10  Sair                                   |"<<endl;
+        cout<<"|9   Receber Livro                          |"<<endl;
+        cout<<"|10  Repor Livro na biblioteca              |"<<endl;
+        cout<<"|11  Sair                                   |"<<endl;
         cout<<"|*******************************************|"<<endl;
         
         opcao = val.validarShort("Introduza a opção (1-10): ", 1, 10, "Erro! Opção inválida, tente novamente!");
@@ -678,8 +732,9 @@ void Tarefas::menu() {
                         printOrderArray(listB, sizeListB);
                     }break;
             case 8: subMenuOrdenacao(); break;
-            case 9:
-            case 10: cout<<""<<endl;
+            case 9: receber(); break;
+            case 10: repor(); break;
+            case 11: cout<<""<<endl;
         }
     } while (opcao != 10);
 }

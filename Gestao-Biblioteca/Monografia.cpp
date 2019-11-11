@@ -22,18 +22,18 @@ Monografia::~Monografia() { /*qtdMono--;*/}
 
 string Monografia::getCurso()        { return curso;     }
 
-Exemplar** Monografia::getExemplar() { return exemplares;}
+//Exemplar** Monografia::getExemplar() { return exemplares;}
 
 void Monografia::setCurso(string curso) {
     if (!curso.empty())
         this->curso = curso;
 }
 
-void Monografia::setExemplares(Exemplar* exemplares[]) {
-    for (short i = 0; i < sizeof(exemplares); i++) {
-        this->exemplares[i] = exemplares[i];
-    }
-}
+//void Monografia::setExemplares(Exemplar* exemplares[]) {
+//    for (short i = 0; i < sizeof(exemplares); i++) {
+//        this->exemplares[i] = exemplares[i];
+//    }
+//}
 
 void Monografia::toString() {
     Documento::toString();

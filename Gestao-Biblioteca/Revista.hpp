@@ -25,11 +25,11 @@ public:
     //gets
     string getISSN();
     string getURL();
-    Exemplar** getExemplares();
+//    Exemplar** getExemplares();
     //sets
     void setISSN(string);
     void setURL(string);
-    void setExemplares(Exemplar*[]);
+//    void setExemplares(Exemplar*[]);
     //toString()
     void toString();
     

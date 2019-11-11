@@ -85,7 +85,11 @@ public:
     void printOrderArray(Livro *liv[], int);
     
     //MARK: Operação 7:
-    
+    bool isVazio();
+    void receber();
+    ExemplarLivro* repor();
+    int tamanho();
+    ExemplarLivro* criarObjectoExemplarL(short, short ,short , Leitor*, bool);
     
     //MARK: Operação 8:
     void menu();
@@ -98,8 +102,16 @@ public:
     //Falta adicionar métodos para imprimir Livros só, Revista, Discos, 
 private:
     //Estrutura para tabela de Dispersão Documentos
+    //MARK: Operação 1:
     Documento *table[maxDocs];
+    //MARK: Operação 2:
     Leitor *heapReserva[199];
+    //MARK: Operação 5:
+    
+    //MARK: Operação 7:
+    ExemplarLivro *exemplaresTo[199];
+    int size_Exemp;
+    
     Validacoes val;
     int size_;
 };

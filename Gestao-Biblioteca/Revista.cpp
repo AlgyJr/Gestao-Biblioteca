@@ -27,7 +27,7 @@ string Revista::getISSN()           { return issn;     }
 
 string Revista::getURL()            { return url;      }
 
-Exemplar** Revista::getExemplares() {return exemplares;}
+//Exemplar** Revista::getExemplares() {return exemplares;}
 
 void Revista::setISSN(string issn) {
     if (!issn.empty())
@@ -39,10 +39,10 @@ void Revista::setURL(string url) {
         this->url = url;
 }
 
-void Revista::setExemplares(Exemplar* exemplares[]) {
-    for (short i = 0; i < sizeof(exemplares); i++)
-        this->exemplares[i] = exemplares[i];
-}
+//void Revista::setExemplares(Exemplar* exemplares[]) {
+//    for (short i = 0; i < sizeof(exemplares); i++)
+//        this->exemplares[i] = exemplares[i];
+//}
 
 void Revista::toString() {
     Documento::toString();

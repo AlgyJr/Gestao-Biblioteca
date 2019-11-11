@@ -22,10 +22,10 @@ public:
     //MARK: Métodos
     //gets
     string getCurso();
-    Exemplar** getExemplar();
+//    Exemplar** getExemplar();
     //sets
     void setCurso(string);
-    void setExemplares(Exemplar*[]);
+//    void setExemplares(Exemplar*[]);
     //toString
     void toString();
     

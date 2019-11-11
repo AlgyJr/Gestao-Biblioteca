@@ -23,16 +23,15 @@ public:
     Livro();
     ~Livro();
     Livro *next;
-//    static int qtdLivro;
     //métodos
     //gets
     Autor* getAutor();
     string getISBN();
-    ExemplarLivro** getExemplaresLivro();
+//    ExemplarLivro** getExemplaresLivro();
     //sets
     void setAutor(Autor*);
     void setISBN(string);
-    void setExemplares(ExemplarLivro*[]);
+//    void setExemplares(ExemplarLivro*[]);
     //toString
     void toString();
 private:

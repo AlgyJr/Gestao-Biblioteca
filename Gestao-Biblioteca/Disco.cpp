@@ -23,7 +23,7 @@ float Disco::getDuracao()         { return duracao;   }
 
 string Disco::getIdioma()         { return idioma;    }
 
-Exemplar** Disco::getExemplares() { return exemplares;}
+//Exemplar** Disco::getExemplares() { return exemplares;}
 
 void Disco::setDuracao(float duracao) {
     if (duracao != 0.0)
@@ -35,11 +35,11 @@ void Disco::setIdioma(string idioma) {
         this->idioma = idioma;
 }
 
-void Disco::setExemplares(Exemplar* exemplares[]) {
-    for (short i = 0; i < sizeof(exemplares); i++) {
-        this->exemplares[i] = exemplares[i];
-    }
-}
+//void Disco::setExemplares(Exemplar* exemplares[]) {
+//    for (short i = 0; i < sizeof(exemplares); i++) {
+//        this->exemplares[i] = exemplares[i];
+//    }
+//}
 
 void Disco::toString() {
     Documento::toString();

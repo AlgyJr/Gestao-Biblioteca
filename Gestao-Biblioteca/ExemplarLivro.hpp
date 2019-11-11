@@ -17,9 +17,7 @@ public:
     ExemplarLivro(short codigo, short ratingConser, short bloco, Leitor *lastReader, bool emprestado);
     ExemplarLivro();
     ~ExemplarLivro();
-private:
-    Leitor *lastReader;
-    bool emprestado;
+    ExemplarLivro *next;
     //get
     Leitor* getLastReader();
     bool getSituacao();
@@ -28,6 +26,9 @@ private:
     void setSituacao(bool situacao);
     //toString
     void toString();
+private:
+    Leitor *lastReader;
+    bool emprestado;
 };
 
 #endif /* ExemplarLivro_hpp */

@@ -27,6 +27,12 @@ Tarefas::Tarefas() {
     //Inicializar aqui logo que ler do ficheiro
     size_ = 0;
     size_Exemp = 0;
+    table[0] = NULL;
+    table[1] = NULL;
+    table[2] = NULL;
+    table[3] = NULL;
+    table[4] = NULL;
+    
     lerDoFicheiro("documento.txt");
     
     menu();
@@ -108,12 +114,9 @@ void Tarefas::lerDoFicheiro(string fich){
                 crit = titulo;
             }
             
-            cout<<"lendo"<<endl;
             
-            while ((aux != NULL) && !equalDoc(index, aux, crit)) {
+            while ((aux != NULL) && !equalDoc(index, aux, crit))
                 aux = aux->next;
-                cout<<aux->getTitulo()<<endl;
-            }
             
             
             if (aux == NULL) {
@@ -222,36 +225,41 @@ void Tarefas::printDocTable() {
     DVD *d;
     CD *c;
     Revista *r;
-    for (int i = 0; i < maxDocs; i++) {
-        aux = table[i];
-        while (aux != NULL) {
-            if (i == 0) { //Posição dos Livros
-                l = static_cast<Livro*>(aux);
-                l->toString();
-                cout<<endl;
-            } else if (i == 2) {//Posição das Monografias
-                m = static_cast<Monografia*>(aux);
-                m->toString();
-                cout<<endl;
-            } else if (i == 3 || i == 4) {//Posições dos Discos
-                dis = static_cast<Disco*>(aux);
-                if (i == 3){//Posição dos DVDs
-                    d = static_cast<DVD*>(dis);
-                    d->toString();
+    
+    if (table != NULL) {
+        for (int i = 0; i < maxDocs; i++) {
+            aux = table[i];
+            while (aux != NULL) {
+                if (i == 0) { //Posição dos Livros
+                    l = static_cast<Livro*>(aux);
+                    l->toString();
                     cout<<endl;
-                }else { //Posição dos CDs
-                    c = static_cast<CD*>(dis);
-                    c->toString();
+                } else if (i == 2) {//Posição das Monografias
+                    m = static_cast<Monografia*>(aux);
+                    m->toString();
+                    cout<<endl;
+                } else if (i == 3 || i == 4) {//Posições dos Discos
+                    dis = static_cast<Disco*>(aux);
+                    if (i == 3){//Posição dos DVDs
+                        d = static_cast<DVD*>(dis);
+                        d->toString();
+                        cout<<endl;
+                    }else { //Posição dos CDs
+                        c = static_cast<CD*>(dis);
+                        c->toString();
+                        cout<<endl;
+                    }
+                } else {//Posição das Revistas
+                    r = static_cast<Revista*>(aux);
+                    r->toString();
                     cout<<endl;
                 }
-            } else {//Posição das Revistas
-                r = static_cast<Revista*>(aux);
-                r->toString();
-                cout<<endl;
+                
+                aux = aux->next;
             }
-            
-            aux = aux->next;
         }
+    } else {
+        cout<<"Sem documentos"<<endl;
     }
 }
 
@@ -371,9 +379,9 @@ void Tarefas::inserirDoc(int index) {
             cout<<"Erro! Documento já existente"<<endl;
         }
         
-        printf("Documento inserido com sucesso");
+        cout<<"Documento inserido com sucesso"<<endl;
     } else
-        printf("Erro! O documento já existe na Base de Dados");
+        cout<<"Erro! O documento já existe na Base de Dados"<<endl;
 }
 
 //MARK: Operação 2: Reservar Livro
@@ -445,13 +453,12 @@ void Tarefas::bubbleDown(int idx){
 
 Leitor *Tarefas::extractMin(){
     Leitor *min = heapReserva[0];
-    size_--;
+    size_--;//Decrementa -mos a quantidade de Obj
     heapReserva[0] = heapReserva[size_];
-    heapReserva[size_] = NULL;//Decrementa -mos a quantidade de Obj
+    heapReserva[size_] = NULL;
     if (size_ > 1) {
         bubbleDown(0);
     }
-    
     return min;
 }
 
@@ -459,11 +466,9 @@ void Tarefas::printHeap() {
     if(isEmpty())
         cout<<"Sem Reservas"<<endl;
     else{
-        for(int i=0;i<size_;i++){
+        for(int i=0;i<size_;i++)
             heapReserva[i]->toString();
-        }
     }
-    
 }
 
 void Tarefas::printReserva(Leitor *obj) {
@@ -713,7 +718,7 @@ void Tarefas::menu() {
         cout<<"|11  Sair                                   |"<<endl;
         cout<<"|*******************************************|"<<endl;
         
-        opcao = val.validarShort("Introduza a opção (1-10): ", 1, 10, "Erro! Opção inválida, tente novamente!");
+        opcao = val.validarShort("Introduza a opção (1-11): ", 1, 11, "Erro! Opção inválida, tente novamente!");
         
 //        extractMin()->toString();
         int sizeListB = 0;
@@ -734,9 +739,9 @@ void Tarefas::menu() {
             case 8: subMenuOrdenacao(); break;
             case 9: receber(); break;
             case 10: repor(); break;
-            case 11: cout<<""<<endl;
+            case 11: cout<<"Continuação de um bom dia"<<endl;
         }
-    } while (opcao != 10);
+    } while (opcao != 11);
 }
 
 void Tarefas::subMenuInsercao(){

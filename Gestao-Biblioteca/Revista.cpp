@@ -32,6 +32,7 @@ string Revista::getURL()            { return url;      }
 void Revista::setISSN(string issn) {
     if (!issn.empty())
         this->issn = issn;
+    cout<<issn;
 }
 
 void Revista::setURL(string url) {

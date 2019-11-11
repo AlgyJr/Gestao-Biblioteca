@@ -17,8 +17,9 @@ using namespace std;
 string Validacoes::validarString(string msg, short min, short m, string erro) {
     string val;
     int i = 0;
-    cout<<msg;
+    
     do {
+        cout<<msg;
         getline(cin,val);
         i++;
         cout<<endl;

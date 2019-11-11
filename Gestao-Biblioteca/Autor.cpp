@@ -8,24 +8,24 @@
 
 #include "Autor.hpp"
 
-Autor::Autor(int cod_Autor, string nome){
+Autor::Autor(string cod_Autor, string nome){
     this->cod_Autor = cod_Autor;
     this->nome      = nome;
 //    qtdAutor++;
 }
 
 Autor::Autor() {
-    Autor(0,"");
+    Autor("","");
 }
 
 Autor::~Autor() { /*qtdAutor--;*/}
 
-int Autor::getCodigo() { return cod_Autor;}
+string Autor::getCodigo() { return cod_Autor;}
 
 string Autor::getNome()   { return nome;     }
 
-void Autor::setCodigo(int cod_Autor) {
-    if (cod_Autor > 0)
+void Autor::setCodigo(string cod_Autor) {
+    if (cod_Autor.length() == 4)
         this->cod_Autor = cod_Autor;
 }
 

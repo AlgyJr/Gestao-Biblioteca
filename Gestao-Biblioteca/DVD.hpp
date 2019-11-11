@@ -17,19 +17,19 @@
 class DVD:public Disco {
 public:
     //Construtor
-    DVD(string titulo, string assunto, int cota, string editora, float duracao,string idioma, Exemplar *exemplares[], int qualidade);
+    DVD(string titulo, string assunto, int cota, string editora, float duracao,string idioma, Exemplar *exemplares[], string qualidade);
     DVD();
     ~DVD();
 //    static int qtdDVD;
     //Gets
-    int getQualidade();
+    string getQualidade();
     //Sets
-    void setQualidade(int);
+    void setQualidade(string);
     //toString
     void toString();
     
 private:
-    int qualidade;
+    string qualidade;
     
 };
 

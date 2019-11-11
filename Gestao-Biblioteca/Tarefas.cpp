@@ -26,51 +26,19 @@ using namespace std;
 Tarefas::Tarefas() {
     //Inicializar aqui logo que ler do ficheiro
     size_ = 0;
-    lerDoFicheiro();
-    printDocTable();
-    cout<<"\nAcaba tudo";
-//    removerDoc(1); //Escolhido remover um Revista
-    printDocTable();
-    insert(criarLeitor("20150471", "Claida", 'P', "02/10/2019", "20/01/2021"));
-    insert(criarLeitor("2016049", "Fernando", 'F', "09/11/2016", "02/01/2021"));
-    insert(criarLeitor("2017220", "Tonito", 'E', "10/09/2018", "11/10/2021"));
-    insert(criarLeitor("20190471", "Kelvio", 'F', "20/10/2017", "05/04/2022"));
-    insert(criarLeitor("2019034", "Alfredo", 'P', "18/02/2019", "28/12/2020"));
+    lerDoFicheiro("documento.txt");
     
-    cout<<"----------Reservas----------";
-    printHeap();
-    
-    cout<<"----------Removido----------";
-    extractMin()->toString();
-    
-    cout<<"\nNova heap";
-    printHeap();
-    
-    cout<<endl<<endl;
-    
-    Livro *listB[999];
-    int sizeListB = initArrayBooks(listB, sizeListB); //Atribuição da lista ligada dos livros da posção dos livros
-    
-    cout<<"-------Ordenado Por Assunto------";
-    
-    orderByTitle(listB, sizeListB);
-    cout<<sizeListB<<endl;
-    printOrderArray(listB, sizeListB);
-    
-    cout<<"-------Ordenado Por Assunto------";
-    orderByAssunto(listB, sizeListB);
-    printOrderArray(listB, sizeListB);
+    menu();
 }
 
 Tarefas::~Tarefas() {}
 
 //MARK: Ler Ficheiro
-void Tarefas::lerDoFicheiro(){
-    ifstream file ("documento.txt");
-    string linha,titulo,assunto,editora,issn,url,curso,idioma,nomeA,isbn,criterio;
+void Tarefas::lerDoFicheiro(string fich){
+    ifstream file (fich);
+    string linha,titulo,assunto,editora,issn,url,curso,idioma,nomeA,isbn,criterio, qualidade ,cod_Autor;
     float duracao;
-    int qualidade;
-    short cod_Autor, cota;
+    short cota;
     Exemplar* exemplares[max];
     ExemplarLivro *exemplaresLivro[max];
     Autor *autor;
@@ -95,50 +63,36 @@ void Tarefas::lerDoFicheiro(){
             assunto= strtok(NULL,";");
             cota = atoi(strtok(NULL,";"));
             editora= strtok(NULL,";");
-//            cout<<titulo<<assunto<<cota<<editora<<endl;
             criterio = strtok(NULL,";");
             if(criterio=="R"){//Revista
                 issn=strtok(NULL,";");
                 url=strtok(NULL,";");
-//                r = dynamic_cast<Revista*>(aux);
                 r = criarObjectRevista(titulo,assunto,cota,editora,issn,url, exemplares);
                 index = 1;
-//                cout<<issn<<url;
-                cout<<"R";
             } else if(criterio=="M") {//monografia
                 curso=strtok(NULL,";");
-//                mon = dynamic_cast<Monografia*>(aux);
                 mon = criarObjectMonografia(titulo,assunto,cota,editora,curso, exemplares);
                 index = 2;
-                cout<<curso<<endl;
             } else if(criterio=="I") {//Disco
                 idioma=strtok(NULL,";");
                 duracao=atoi(strtok(NULL,";"));
-                cout<<idioma<<duracao;
                 criterio = strtok(NULL,";");
-//                dis = dynamic_cast<Disco*>(aux);
                 if(criterio=="D") {//DVD
-                    qualidade=atoi(strtok(NULL,";"));
-//                    d = dynamic_cast<DVD*>(dis);
+                    qualidade = strtok(NULL,";");
                     d = criarObjectDVD(titulo, assunto, cota, editora, duracao, idioma,
                         exemplares, qualidade);
                     index = 3;
-                    cout<<qualidade;
                 } else { //cd
-//                    c = dynamic_cast<CD*>(dis);
                     c = criarObjectCD(titulo, assunto, cota, editora, duracao, idioma, exemplares);
-                    cout<<"\nCriado objecto CD"<<endl;
                     index = 4;
                 }
             } else { //Livro
-                cod_Autor=atoi(strtok(NULL, ";"));
+                cod_Autor = strtok(NULL, ";");
                 nomeA=strtok(NULL,";");
                 isbn=strtok(NULL,";");
-//                l = dynamic_cast<Livro*>(aux);
                 autor = criarObjectAutor(cod_Autor, nomeA);
                 l = criarObjectLivro(titulo, assunto, cota, editora, autor, isbn, exemplaresLivro);
                 index = 0;
-//                cout<<cod_Autor<<nomeA<<isbn;
             }
             
             aux = NULL;
@@ -162,26 +116,20 @@ void Tarefas::lerDoFicheiro(){
                 aux = new Documento;
                 
                 if (index == 1) {
-                    cout<<"Revista: "<<titulo;
                     aux = r;
                 } else if (index == 2) {
-                    cout<<"Monografia";
                     aux = mon;
                 } else if (index == 3) {
-                    cout<<"DVD";
                     aux = d;
                 } else if (index == 4) {
-                    cout<<"\nCD"<<titulo;
                     aux = c;
                 } else {
-                    cout<<"Livro: "<<titulo;
                     aux = l;
                 }
-                cout<<"\nIndex: "<<index;
                 aux->next = table[index];
                 table[index] = aux;
             } else {
-                cout<<"Já existe";
+                cout<<"Erro! Documento já existente"<<endl;
             }
         }
         file.close();
@@ -191,7 +139,7 @@ void Tarefas::lerDoFicheiro(){
     }
 }
 
-Autor* Tarefas::criarObjectAutor(int cod_Autor, string nomeA) {
+Autor* Tarefas::criarObjectAutor(string cod_Autor, string nomeA) {
     Autor *a = new Autor();
     a->setCodigo(cod_Autor);
     a->setNome(nomeA);
@@ -223,7 +171,7 @@ Monografia* Tarefas:: criarObjectMonografia(string titulo, string assunto, int c
     return mono;
 }
 
-DVD* Tarefas::criarObjectDVD(string titulo, string assunto, int cota, string editora, float duracao,string idioma, Exemplar *exemplares[], int qualidade){
+DVD* Tarefas::criarObjectDVD(string titulo, string assunto, int cota, string editora, float duracao,string idioma, Exemplar *exemplares[], string qualidade){
     DVD *dvd=new DVD();
     dvd->setTitulo(titulo);
     dvd->setAssunto(assunto);
@@ -305,36 +253,13 @@ void Tarefas::printDocTable() {
 
 //MARK: Operação 1: Inserir Documento
 
-short Tarefas::posDoc(char criterio) {
-    if (criterio == 'L') {
-        return 0;
-    } else if (criterio == 'R') {
-        return 1;
-    } else if (criterio == 'M') {
-        return 2;
-    } else if (criterio == 'D') {
-        return 3;
-    } else {
-        return 4;
-    }
-}
+bool Tarefas::equalDisc(Disco *aux, string titulo)            { return aux->getTitulo() == titulo; }
 
-bool Tarefas::equalDisc(Disco *aux, string titulo) {
-    return aux->getTitulo() == titulo;
-}
+bool Tarefas::equalRev(Revista *aux, string issn)             { return aux->getISSN() == issn;     }
 
-bool Tarefas::equalRev(Revista *aux, string issn) {
-    cout<<"\nO ISSN: "<<aux->getISSN()<<"== "<<issn<<endl;
-    return aux->getISSN() == issn;
-}
+bool Tarefas::equalBook(Livro *aux, string isbn)              { return aux->getISBN() == isbn;     }
 
-bool Tarefas::equalBook(Livro *aux, string isbn) {
-    return aux->getISBN() == isbn;
-}
-
-bool Tarefas::equalMonografia(Monografia *aux, string titulo) {
-    return aux->getTitulo() == titulo;
-}
+bool Tarefas::equalMonografia(Monografia *aux, string titulo) { return aux->getTitulo() == titulo; }
 
 bool Tarefas::equalDoc(int index, Documento *aux, string crit) { //com posição do tipo do objecto
     if (index == 1) { //Se for revista
@@ -348,16 +273,19 @@ bool Tarefas::equalDoc(int index, Documento *aux, string crit) { //com posição
     }
 }
 
-void Tarefas::inserirDoc(char criterio) {
+void Tarefas::inserirDoc(int index) {
     Documento *aux = NULL;
     Exemplar* exemplares[max];
     ExemplarLivro *exemplaresLivro[max];
     Autor *autor;
-    short index = posDoc(criterio);
-    string linha,titulo,assunto,editora,issn,url,curso,idioma,nomeA,isbn;
+    Livro *l;
+    Revista *r;
+    CD *c;
+    DVD *d;
+    Monografia *mon;
+    string linha,titulo,assunto,editora,issn,url,curso,idioma,nomeA,isbn, cod_Autor, qualidade;
     float duracao;
-    int qualidade;
-    short cod_Autor, cota;
+    short cota;
     bool equal = false;
     
     aux = table[index];
@@ -369,58 +297,75 @@ void Tarefas::inserirDoc(char criterio) {
     if (aux == NULL) {
         aux = new Documento;
         
-        cout<<"Introduza o titulo: ";
-        cin >> titulo;
-        cout<<"\nIntroduza o assunto: ";
-        cin >> assunto;
-        cout<<"\nIntroduza a cota: ";
-        cin >> cota;
-        cout<<"\nIntroduza a editora: ";
-        cin >> editora;
-        cout<<titulo<<assunto<<cota<<editora<<endl;
-        if(criterio=='R'){//Revista
-            cout<<"\nIntroduza o ISSN: ";
-            cin >> issn;
-            cout<<"\nIntroduza o url: ";
-            cin >> url;
-            criarObjectRevista(titulo,assunto,cota,editora,issn,url, exemplares);
-            cout<<issn<<url;
-        } else if(criterio=='M') {//monografia
-            cout<<"Introduza o curso: ";
-            cin >> curso;
-            criarObjectMonografia(titulo,assunto,cota,editora,curso, exemplares);
-            cout<<curso<<endl;
-        } else if(criterio=='I') {//Disco
+        titulo = val.validarString("Introduza o título: ", 1, 24, "Erro! Título inválido, tente novamente!");
+        assunto = val.validarString("Introduza o assunto: ", 1, 99, "Erro! Assunto inválido, tente novamente!");
+        cota = val.validarInt("Introduza a cota(quantidade de exemplares): ", 1, 10, "Erro! Cota inválida, tente novamente!");
+        editora = val.validarString("Introduza a editora: ", 1, 18, "Erro! Editora inválida, tente novamente!");
+        if(index == 1){//Revista
+            issn = val.validarString("Introduza o título: ", 8, 8, "Erro! ISSN inválido, tente novamente!");
+            url = val.validarRegex("Introduza o URL: ", "/(http(s)?:\/\/.)?(www\.)?[-a-zA-Z0-9@:%._\+~#=]{2,256}\.[a-z]{2,4}\b([-a-zA-Z0-9@:%_\+.~#?&//=]*)/g", "Erro! URL inválido, tente novamente!");
+            r = criarObjectRevista(titulo,assunto,cota,editora,issn,url, exemplares);
+        } else if(index == 2) {//monografia
+            curso = val.validarString("Introduza o curso: ", 4, 30, "Erro! Curso inválido, tente novamente!");
+            mon = criarObjectMonografia(titulo,assunto,cota,editora,curso, exemplares);
+        } else if(index == 3 || index == 4) {//Disco
             cout<<"Introduza o idioma: ";
             cin >> idioma;
             cout<<"Introduza a duração em minutos: ";
             cin >> duracao;
             cout<<idioma<<duracao;
-            if(criterio=='D') {//DVD
+            if(index == 3) {//DVD
                 cout<<"Introduza a qualidade do video(p): ";
-                cin >> qualidade;
-                criarObjectDVD(titulo, assunto, cota, editora, duracao, idioma,
+                qualidade = val.validarStringOptions("Introduza a qualidade(260, 340p, 720p, 1080p): ", "240p", "360p", "720p", "1080p", "Erro! Qualidade inválida, tente d");
+                d = criarObjectDVD(titulo, assunto, cota, editora, duracao, idioma,
                     exemplares, qualidade);
-                cout<<qualidade;
             } else//CD
-                if(criterio=='C')
-                    criarObjectCD(titulo, assunto, cota, editora, duracao, idioma, exemplares);
-        } else //livro
-            if(criterio=='L'){
-                cout<<"Introduza o código do autor: ";
-                cin >> cod_Autor;
-                cout<<"Introduza o nome do autor: ";
-                cin >> nomeA;
-                cout<<"Introduza o ISBN: ";
-                cin >> isbn;
-                autor = criarObjectAutor(cod_Autor, nomeA);
-                criarObjectLivro(titulo, assunto, cota, editora, autor, isbn, exemplaresLivro);
-                cout<<cod_Autor<<nomeA<<isbn;
+                if(index == 4)
+                    c = criarObjectCD(titulo, assunto, cota, editora, duracao, idioma, exemplares);
+        } else {//livro
+            cod_Autor = val.validarString("Introduza o código do autor(4 dígitos): ", 4, 4, "Erro! Código inválido, tente novamente!");
+            nomeA = val.validarString("Introduza o nome do autor: ", 1, 70, "Erro! Nome inválido, tente novamente!");
+            isbn = val.validarString("Introduza o ISBN do livro(deve conter 13 dígitos e 4(-) = 17 digitos): ", 17, 17, "Erro! ISBN inválido!");
+            autor = criarObjectAutor(cod_Autor, nomeA);
+            l = criarObjectLivro(titulo, assunto, cota, editora, autor, isbn, exemplaresLivro);
+        }
+        
+        aux = NULL;
+        aux = table[index];
+        
+        string crit;
+        if (index == 0) {
+            crit = isbn;
+        } else if (index == 1) {
+            crit = issn;
+        } else {
+            crit = titulo;
+        }
+        
+        while ((aux != NULL) && !equalDoc(index, aux, crit)) {
+            aux = aux->next;
+        }
+        
+        if (aux == NULL) {
+            aux = new Documento;
+            
+            if (index == 1) {
+                aux = r;
+            } else if (index == 2) {
+                aux = mon;
+            } else if (index == 3) {
+                aux = d;
+            } else if (index == 4) {
+                aux = c;
+            } else {
+                aux = l;
             }
-
-
-        aux->next = table[index];
-        table[index] = aux;
+            
+            aux->next = table[index];
+            table[index] = aux;
+        } else {
+            cout<<"Erro! Documento já existente"<<endl;
+        }
         
         printf("Documento inserido com sucesso");
     } else
@@ -451,14 +396,18 @@ void Tarefas::bubbleUp(int idx){
         return;//base case root of heap
         //Se o Valor da prioridade do pai e maior que do burraco
     if(heapReserva[parentIdx]->getPrioridade() > heapReserva[idx]->getPrioridade()){
-        cout<<heapReserva[parentIdx]->getNome()<<"Troca com"<<heapReserva[idx]->getNome()<<endl;
         swapObj(parentIdx,idx);//Metodo para trocar os valores
         bubbleUp(parentIdx);
     }
 }
 
-void Tarefas::insert(Leitor *obj){//Metodo para inserir um novo obj
-    heapReserva[size_] = obj;
+void Tarefas::insertReserva(){//Metodo para inserir um novo obj
+    string cod_leitor = val.validarString("Introduza o código leitor(4 digitos): ", 4, 4, "Erro! Código leitor inválido, tente novamente(4 digitos)!");
+    string nome = val.validarString("Introduza o nome do leitor: ", 1, 99, "Erro! Nome inválido, tente novamente!");
+    char categoria = val.validarCharOption("Introduza a categoria do leitor(P - Professor,E- Estudante, F- Funcionario, O- Outros): ", 'P', 'E', 'F', 'O', "Erro! Categoria inválida, tente novamente!");
+    string data_inscr = val.validarString("Introduza a data de inscrição: ", 8, 10, "Erro! Data de inscrição inválida!");
+    string validade = val.validarString("Introduza a validade: ", 8, 10, "Erro! Validade inválida, tente novamente!");
+    heapReserva[size_] = criarLeitor(cod_leitor, nome, categoria, data_inscr, validade);
     bubbleUp(size_);
     size_++;
 }
@@ -478,13 +427,11 @@ int Tarefas::getMinIdx(int aIdx,int bIdx,int cIdx){
 
 void Tarefas::bubbleDown(int idx){
     int childIdx = child(idx);
-    cout<<"Index do filho: "<<childIdx<<endl;
     if(childIdx == -1)
         return ; //Se nao tiver filho esquerdo
     int minIdx = getMinIdx(idx , childIdx , childIdx + 1);
     
     if(minIdx != idx){
-        cout<<"Posição do index minimo: "<<idx<<endl;
         swapObj(idx, minIdx);
         bubbleDown(minIdx);
     }
@@ -496,7 +443,6 @@ Leitor *Tarefas::extractMin(){
     size_--;
     heapReserva[0] = heapReserva[size_];
     heapReserva[size_] = NULL;//Decrementa -mos a quantidade de Obj
-    cout<<endl<<size_<<endl;
     if (size_ > 1) {
         bubbleDown(0);
     }
@@ -545,7 +491,6 @@ void Tarefas::removerDoc(int index) { //Para referenciar que documento o utiliza
     
     if (table[index] != NULL) {
         int i = search(index);
-        cout<<endl<<"Index da procura: "<<i<<endl;
         if (i == -1) {
             cout<<"Documento não encontrado";
         } else {
@@ -555,7 +500,6 @@ void Tarefas::removerDoc(int index) { //Para referenciar que documento o utiliza
             } else {
                 aux1 = table[index]->next;
                 aux2 = table[index];
-                cout<<"Entrou no else";
                 for (int c = 1; c < i; c++) {
                     aux2 = aux1;
                     aux1 = aux1->next;
@@ -585,6 +529,7 @@ int Tarefas::search(int index) {
     int i = 0;
     
     string crit;
+    cout<<"Introduza o";
     if (index == 0) { //Pedir para introduzir
         cout<<"ISBN: ";
         //chamada do método validar
@@ -594,18 +539,15 @@ int Tarefas::search(int index) {
         cout<<"Título: ";
     }
     cin>>crit;
+    cout<<endl;
     
     aux1 = table[index];
     
-    cout<<"Entrou no else";
-//    aux1 = aux1->next;
     while (aux1 != NULL) {
         cout<<"Título: "<<aux1->getTitulo()<<endl;
-        if (equalDoc(index, aux1, crit)) {
-            cout<<"Apanhou";
+        if (equalDoc(index, aux1, crit)) { //Se for o documento a ser procurado
             return i;
-        } else {
-            cout<<"Ainda!"<<endl;
+        } else { //Se não for o documento a ser procurado
             aux1 = aux1->next;
             i++;
         }
@@ -623,7 +565,6 @@ int Tarefas::initArrayBooks(Livro *liv[], int sizList) {
     int i = 0;
     
     while (aux != NULL) {
-        cout<<"Entra no while";
         liv[i] = static_cast<Livro*>(aux);
         aux = aux->next;
         i++;
@@ -651,16 +592,12 @@ int Tarefas::compareCrit(string critObj1, string critObj2) {
     
     strcpy(str1, critObj1.c_str());
     strcpy(str2, critObj2.c_str());
-
-    cout<<strcmp(str1, str2)<<endl;
     
     short result = strcmp(str1, str2);
     
     if (result < 0) {
-        cout<<"Primeiro Título: "<<str1<<"Segundo Título: "<<str2<<endl;
         return -1;
     } else if (result > 0) {
-        cout<<"Primeiro Título: "<<str2<<"Segundo Título: "<<str1<<endl;
         return 1;
     } else
         return 0;
@@ -681,4 +618,124 @@ void Tarefas::swapElements(Livro *array[], int i, int j) {
 
 //MARK: Operação 7: Devolver Livro
 
+
 //MARK: Operação 8: Menu
+void Tarefas::menu() {
+    short opcao;
+    
+    do {
+        cout<<"|*****************BIBLIOTECA****************|"<<endl;
+        cout<<"|1   Inserir documento                      |"<<endl;
+        cout<<"|2   Visualizar documentos                  |"<<endl;
+        cout<<"|3   Reservar Livro                         |"<<endl;
+        cout<<"|4   Visualizar reservas de livros          |"<<endl;
+        cout<<"|5   Remover documento                      |"<<endl;
+        cout<<"|6   Pesquisar por documento                |"<<endl;
+        cout<<"|7   Visualizar Livros de Autor             |"<<endl;
+        cout<<"|8   Visualizar Livros Ordenados            |"<<endl;
+        cout<<"|9   Devolver Livro                         |"<<endl;
+        cout<<"|10  Sair                                   |"<<endl;
+        cout<<"|*******************************************|"<<endl;
+        cout<<"Escolha uma Opcao do Menu(1-8): "<<endl;
+        
+        opcao = val.validarShort("Introduza a opção (1-8): ", 1, 10, "Erro! Opção inválida, tente novamente!");
+        
+//        extractMin()->toString();
+        
+        switch(opcao){
+            case 1: subMenuInsercao(); break;
+            case 2: printDocTable(); break;
+            case 3: insertReserva(); break;
+            case 4: printHeap();; break;
+            case 5: subMenuRemove(); break;
+            case 6: subMenuPesquisa(); break;
+            case 7: break;
+            case 8: subMenuOrdenacao(); break;
+            case 9:
+            case 10: cout<<""<<endl;
+        }
+    } while (opcao != 10);
+}
+
+void Tarefas::subMenuInsercao(){
+    int opcao;
+    
+    subMenu("Inserção");
+    opcao = val.validarShort("Introduza a opção (1-6): ", 1, 6, "Erro! Opção inválida, tente novamente!");
+    
+    switch(opcao){
+        case 1: inserirDoc(2); break;
+        case 2: inserirDoc(3); break;
+        case 3: inserirDoc(4); break;
+        case 4: inserirDoc(0); break;
+        case 5: inserirDoc(1); break;
+        case 6: return;
+    }
+}
+
+void Tarefas::subMenuRemove() {
+    int opcao;
+    
+    subMenu("Remoção");
+    opcao = val.validarShort("Introduza a opção (1-6): ", 1, 6, "Erro! Opção inválida, tente novamente!");
+    
+    switch(opcao){
+        case 1: removerDoc(2); break;
+        case 2: removerDoc(3); break;
+        case 3: removerDoc(4); break;
+        case 4: removerDoc(0); break;
+        case 5: removerDoc(1); break;
+        case 6: return;
+    }
+}
+
+void Tarefas::subMenuOrdenacao(){
+    int opcao;
+    
+    Livro *listB[999];
+    int sizeListB = initArrayBooks(listB, sizeListB); //Atribuição da lista ligada dos livros da posção dos livros
+    cout<<"|****************ORDENACAO****************|"<<endl;
+    cout<<"|1 Ordenado por Titulo                    |"<<endl;
+    cout<<"|2 Ordenado por Tema                      |"<<endl;
+    cout<<"|3 Voltar ao Menu Principal               |"<<endl;
+    cout<<"|*****************************************|"<<endl;
+    
+    opcao = val.validarShort("Introduza a opção (1-3): ", 1, 3, "Erro! Opção inválida, tente novamente!");
+    
+    switch(opcao){
+        case 1: orderByTitle(listB, sizeListB);
+                cout<<"-------Ordenado Por Titulo------";
+                printOrderArray(listB, sizeListB); break;
+        case 2: orderByAssunto(listB, sizeListB);
+                cout<<"-------Ordenado Por Assunto------";
+                printOrderArray(listB, sizeListB); break;
+        case 3: return;
+    }
+}
+
+void Tarefas::subMenuPesquisa() {
+    int opcao;
+    
+    subMenu("Pesquisa");
+    opcao = val.validarShort("Introduza a opção (1-6): ", 1, 6, "Erro! Opção inválida, tente novamente!");
+    
+    switch(opcao){
+        case 1: search(2); break;
+        case 2: search(3); break;
+        case 3: search(4); break;
+        case 4: search(0); break;
+        case 5: search(1); break;
+        case 6: return;
+    }
+}
+
+void Tarefas::subMenu(string cab) {
+    cout<<"|****************"<<cab<<"****************|"<<endl;
+    cout<<"|1  Monografia                           |"<<endl;
+    cout<<"|2  DVD                                  |"<<endl;
+    cout<<"|3  CD                                   |"<<endl;
+    cout<<"|4  Livro                                |"<<endl;
+    cout<<"|5  Revista                              |"<<endl;
+    cout<<"|6  Voltar ao Menu Principal             |"<<endl;
+    cout<<"|****************************************|"<<endl;
+}

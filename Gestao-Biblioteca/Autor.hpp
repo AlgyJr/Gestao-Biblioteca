@@ -17,23 +17,23 @@ using namespace std;
 class Autor {
 public:
     //Construtor
-    Autor(int cod_Autor, string nome);
+    Autor(string cod_Autor, string nome);
     //Segundo construtor
     Autor();
     //Destrutor
     ~Autor();
 //    static int qtdAutor;
     //gets
-    int getCodigo();
+    string getCodigo();
     string getNome();
     //sets
-    void setCodigo(int);
+    void setCodigo(string);
     void setNome(string);
     //toString
     void toString();
 private:
     //MARK: Properties
-    int cod_Autor;
+    string cod_Autor;
     string nome;
     
 };

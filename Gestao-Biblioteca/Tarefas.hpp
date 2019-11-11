@@ -17,28 +17,28 @@
 #include "CD.hpp"
 #include "Monografia.hpp"
 #include "Revista.hpp"
+#include "Validacoes.hpp"
 
 class Tarefas {
     
 public:
     Tarefas();
     ~Tarefas();
-    void lerDoFicheiro();
+    void lerDoFicheiro(string);
     void inserirTable();
-    Autor* criarObjectAutor(int cod_Autor, string nomeA);
+    Autor* criarObjectAutor(string cod_Autor, string nomeA);
     Livro* criarObjectLivro(string titulo, string assunto, int cota, string editora, Autor *autor, string isbn,ExemplarLivro *exemplares[]);
     Monografia* criarObjectMonografia(string titulo, string assunto, int cota, string editora, string curso, Exemplar *exemplares[]);
     Revista* criarObjectRevista(string titulo, string assunto, int cota, string editora, string issn, string url, Exemplar* exemplares[]);
-    DVD* criarObjectDVD(string titulo, string assunto, int cota, string editora, float duracao,string idioma, Exemplar *exemplares[], int qualidade);
+    DVD* criarObjectDVD(string titulo, string assunto, int cota, string editora, float duracao,string idioma, Exemplar *exemplares[], string qualidade);
     CD* criarObjectCD(string titulo, string assunto, int cota, string editora, float duracao,string idioma, Exemplar *exemplares[]);
-    void inserirDoc(char);
+    void inserirDoc(int);
     void removerDoc(int);
     bool equalRev(Revista*,string);
     bool equalDisc(Disco*,string);
     bool equalMonografia(Monografia*,string);
     bool equalBook(Livro*,string);
     bool equalDoc(int,Documento*,string);
-    short posDoc(char);
     void printDocTable();
 //    void printObject();
     //MARK: Operação 2:
@@ -54,13 +54,12 @@ public:
     //entre 3 indices dados para o array da heap
     
     int getMinIdx(int aIdx,int bIdx, int cIdx);
-    //MARK: Operação 2
     bool isFull();//retorna true se a fila por prioridade nao pode receber nenhuma outra entrada
     bool isEmpty();//retorna true se a fila por prioridade estiver vazia
     int size();//retorna o numero de elementos na fila por prioridade
     int parent(int idx);
     int child(int idx);
-    void insert(Leitor *obj);//metodo para inserira na fila por prioridade
+    void insertReserva();//metodo para inserira na fila por prioridade
     Leitor* extractMin();//removes and returns min value
     void printHeap(); //Imprime reservas todas
     Leitor *criarLeitor(string cod_leitor, string nome, char categoria, string data_inscr, string validade);
@@ -81,11 +80,20 @@ public:
     void swapElements(Livro* array[], int, int);
     void printOrderArray(Livro *liv[], int);
     
+    //MARK: Operação 8:
+    void menu();
+    void subMenuInsercao();
+    void subMenuRemove();
+    void subMenuOrdenacao();
+    void subMenuPesquisa();
+    void subMenu(string cab);
+    
     //Falta adicionar métodos para imprimir Livros só, Revista, Discos, 
 private:
     //Estrutura para tabela de Dispersão Documentos
     Documento *table[maxDocs];
     Leitor *heapReserva[199];
+    Validacoes val;
     int size_;
 };
 

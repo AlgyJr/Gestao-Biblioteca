@@ -8,20 +8,20 @@
 
 #include "DVD.hpp"
 
-DVD::DVD(string titulo, string assunto, int cota, string editora, float duracao,string idioma, Exemplar *exemplares[], int qualidade):Disco(titulo, assunto, cota, editora, duracao, idioma, exemplares){
+DVD::DVD(string titulo, string assunto, int cota, string editora, float duracao,string idioma, Exemplar *exemplares[], string qualidade):Disco(titulo, assunto, cota, editora, duracao, idioma, exemplares){
     this->qualidade = qualidade;
 //    qtdDVD++;
 }
 
 DVD::DVD():Disco("","",0,"",0,"",NULL){
-    DVD("","",0,"",0,"",NULL,0);
+    DVD("","",0,"",0,"",NULL,"");
 }
 
 DVD::~DVD() { /*qtdDVD--;*/}
 
-int DVD::getQualidade() { return qualidade;}
+string DVD::getQualidade() { return qualidade;}
 
-void DVD::setQualidade(int qualidade) {
+void DVD::setQualidade(string qualidade) {
     this->qualidade = qualidade;
 }
 

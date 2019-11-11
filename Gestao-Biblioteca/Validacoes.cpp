@@ -10,12 +10,17 @@
 
 #include <iostream>
 #include <string.h>
+#include <string>
+
+using namespace std;
 
 string Validacoes::validarString(string msg, short min, short m, string erro) {
     string val;
+    int i = 0;
+    cout<<msg;
     do {
-        cout<<msg<<endl;
-        cin>>val;
+        getline(cin,val);
+        i++;
         cout<<endl;
         if (val.length() < min || val.length() > m)
             cout<<erro<<endl;

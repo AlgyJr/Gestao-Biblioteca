@@ -33,12 +33,6 @@ public:
     DVD* criarObjectDVD(string titulo, string assunto, int cota, string editora, float duracao,string idioma, Exemplar *exemplares[], string qualidade);
     CD* criarObjectCD(string titulo, string assunto, int cota, string editora, float duracao,string idioma, Exemplar *exemplares[]);
     void inserirDoc(int);
-    void removerDoc(int);
-    bool equalRev(Revista*,string);
-    bool equalDisc(Disco*,string);
-    bool equalMonografia(Monografia*,string);
-    bool equalBook(Livro*,string);
-    bool equalDoc(int,Documento*,string);
     void printDocTable();
 //    void printObject();
     //MARK: Operação 2:
@@ -68,17 +62,30 @@ public:
     
     
     //MARK: Operação 3:
-    int search(int);
+    void removerDoc(int);
+    bool equalRev(Revista*,string);
+    bool equalDisc(Disco*,string);
+    bool equalMonografia(Monografia*,string);
+    bool equalBook(Livro*,string);
+    bool equalDoc(int,Documento*,string);
     
     //MARK: Operação 4:
+    int search(int);
     
     //MARK: Operação 5:
-    int initArrayBooks(Livro* liv[], int);
+    bool equalAutorBook(Livro*,string);
+    int catchAutorBook(Livro *book[]);
+    
+    //MARK: Operação 6:
+    int initArrayBooks(Livro* liv[]);
     void orderByTitle(Livro* liv[], int); //usando BubbleSort
     void orderByAssunto(Livro* liv[], int); //usando BubbleSort
     int compareCrit(string, string);
     void swapElements(Livro* array[], int, int);
     void printOrderArray(Livro *liv[], int);
+    
+    //MARK: Operação 7:
+    
     
     //MARK: Operação 8:
     void menu();

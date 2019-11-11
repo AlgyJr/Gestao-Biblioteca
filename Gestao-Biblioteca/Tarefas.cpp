@@ -557,10 +557,32 @@ int Tarefas::search(int index) {
 }
 
 //MARK: Operação 5: Pesquisar Autor (Return livro do autor)
+bool Tarefas::equalAutorBook(Livro *obj, string name) {
+    return obj->getAutor()->getNome() == name;
+}
+
+int Tarefas::catchAutorBook(Livro *book[]) {
+    if (table[0] == NULL) {
+        return -1;
+    }
+    Documento *aux = table[0];
+    int i = 0;
+    string name = val.validarString("Introduza o nome do autor: ", 1, 99, "Erro! Nome inválido, tente novamente!");
+    
+    while (aux != NULL) {
+        if (equalAutorBook(static_cast<Livro*>(aux), name)) {
+            book[i] = static_cast<Livro*>(aux);
+            i++;
+        }
+        aux = aux->next;
+        
+    }
+    return i;
+}
 
 //MARK: Operação 6: Listar Livros por Ordem
 
-int Tarefas::initArrayBooks(Livro *liv[], int sizList) {
+int Tarefas::initArrayBooks(Livro *liv[]) {
     Documento *aux = table[0];
     int i = 0;
     
@@ -604,7 +626,7 @@ int Tarefas::compareCrit(string critObj1, string critObj2) {
 }
 
 void Tarefas::printOrderArray(Livro *liv[], int siz) {
-    for (int x = 0; x < siz-1; x++) {
+    for (int x = 0; x < siz; x++) {
         liv[x]->toString();
         cout<<endl;
     }
@@ -636,11 +658,11 @@ void Tarefas::menu() {
         cout<<"|9   Devolver Livro                         |"<<endl;
         cout<<"|10  Sair                                   |"<<endl;
         cout<<"|*******************************************|"<<endl;
-        cout<<"Escolha uma Opcao do Menu(1-8): "<<endl;
         
-        opcao = val.validarShort("Introduza a opção (1-8): ", 1, 10, "Erro! Opção inválida, tente novamente!");
+        opcao = val.validarShort("Introduza a opção (1-10): ", 1, 10, "Erro! Opção inválida, tente novamente!");
         
 //        extractMin()->toString();
+        int sizeListB = 0;
         
         switch(opcao){
             case 1: subMenuInsercao(); break;
@@ -649,7 +671,12 @@ void Tarefas::menu() {
             case 4: printHeap();; break;
             case 5: subMenuRemove(); break;
             case 6: subMenuPesquisa(); break;
-            case 7: break;
+            case 7: Livro *listB[999];
+                    sizeListB = catchAutorBook(listB);
+                    if (sizeListB != -1) {
+                        orderByTitle(listB, sizeListB);
+                        printOrderArray(listB, sizeListB);
+                    }break;
             case 8: subMenuOrdenacao(); break;
             case 9:
             case 10: cout<<""<<endl;
@@ -693,7 +720,7 @@ void Tarefas::subMenuOrdenacao(){
     int opcao;
     
     Livro *listB[999];
-    int sizeListB = initArrayBooks(listB, sizeListB); //Atribuição da lista ligada dos livros da posção dos livros
+    int sizeListB = initArrayBooks(listB); //Atribuição da lista ligada dos livros da posção dos livros
     cout<<"|****************ORDENACAO****************|"<<endl;
     cout<<"|1 Ordenado por Titulo                    |"<<endl;
     cout<<"|2 Ordenado por Tema                      |"<<endl;

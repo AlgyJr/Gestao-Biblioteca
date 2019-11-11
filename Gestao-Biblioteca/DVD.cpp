@@ -27,5 +27,5 @@ void DVD::setQualidade(string qualidade) {
 
 void DVD::toString() {
     Disco::toString();
-    cout<<"\nQualidade: "<<qualidade<<"p"<<endl;
+    cout<<"\nQualidade: "<<qualidade<<endl;
 }

@@ -24,6 +24,7 @@ Revista::~Revista() { /*qtdRev--;*/}
 
 string Revista::getISSN()           { return issn;     }
 
+
 string Revista::getURL()            { return url;      }
 
 Exemplar** Revista::getExemplares() {return exemplares;}

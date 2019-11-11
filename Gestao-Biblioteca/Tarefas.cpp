@@ -726,7 +726,11 @@ void Tarefas::menu() {
         switch(opcao){
             case 1: subMenuInsercao(); break;
             case 2: printDocTable(); break;
-            case 3: insertReserva(); break;
+            case 3: if (table[0] != NULL) {
+                        insertReserva();
+                    } else {
+                        cout<<"Sem livros para reservar"<<endl;
+                    } break;
             case 4: printHeap();; break;
             case 5: subMenuRemove(); break;
             case 6: subMenuPesquisa(); break;

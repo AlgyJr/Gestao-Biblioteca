@@ -391,20 +391,15 @@ bool Tarefas::isEmpty() { return size_ == 0; }
 int Tarefas::size() { return size_; }
 
 int Tarefas::parent(int idx) {
-    if(size_<=1) //empty or root has no parent
-        return -1;
-    return ((int)(idx/2)-1);//floor(idx/2)
+    return (idx-1/2));
 }
 
 int Tarefas::child(int idx) {
-    if(size_ <= 1|| (2 * idx) > size_)
-        return -1; //empty or root has no child
-
     return (2*idx)+1;
 }
 void Tarefas::bubbleUp(int idx){
     int parentIdx = parent(idx);
-    if(parentIdx == -1)
+    if(parentIdx > 0)
         return;//base case root of heap
         //Se o Valor da prioridade do pai e maior que do burraco
     if(heapReserva[parentIdx]->getPrioridade() > heapReserva[idx]->getPrioridade()){
@@ -440,7 +435,7 @@ int Tarefas::getMinIdx(int aIdx,int bIdx,int cIdx){
 
 void Tarefas::bubbleDown(int idx){
     int childIdx = child(idx);
-    if(childIdx == -1)
+    if(childIdx < 0)
         return ; //Se nao tiver filho esquerdo
     int minIdx = getMinIdx(idx , childIdx , childIdx + 1);
     
